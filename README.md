@@ -1,6 +1,6 @@
 # 📊 Sistema de RH - API com FastAPI e SQLModel
 
-Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema de Recursos Humanos (RH)**, desenvolvida com **FastAPI**, **SQLModel** e **Alembic**. O sistema permite o gerenciamento de departamentos, funcionários, folhas de pagamento, benefícios e vínculos entre funcionários e benefícios, incluindo filtros, paginação, contagens e muito mais.
+Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema de Recursos Humanos (RH)**, desenvolvida com **FastAPI** e **MongoDB**. O sistema permite o gerenciamento de departamentos, funcionários, folhas de pagamento, benefícios e vínculos entre funcionários e benefícios, incluindo filtros, paginação, contagens e muito mais.
 
 ---
 
@@ -22,6 +22,7 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 ## 🧱 Entidades e Relacionamentos
 
 ### 🔹 Departamento
+
 - `name`
 - `location`
 - `description`
@@ -30,6 +31,7 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 - `Employees`: relacionamento 1:N com Funcionário
 
 ### 🔹 Funcionário
+
 - `name`
 - `cpf`
 - `position`
@@ -39,6 +41,7 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 - `benefits`: relacionamento N:N com Benefício (via tabela associativa)
 
 ### 🔹 Folha de Pagamento
+
 - `employee_id`
 - `deductions`
 - `discount`
@@ -46,6 +49,7 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 - `reference_month`
 
 ### 🔹 Benefício
+
 - `name`
 - `description`
 - `value`
@@ -53,6 +57,7 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 - `active` (booleano)
 
 ### 🔹 FuncionárioBenefício (tabela associativa)
+
 - `employee_id`
 - `benefit_id`
 - `start_date`
@@ -64,17 +69,14 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 ## 🔧 Tecnologias Utilizadas
 
 - [FastAPI](https://fastapi.tiangolo.com/)
-- [SQLModel](https://sqlmodel.tiangolo.com/)
-- [Alembic](https://alembic.sqlalchemy.org/)
-- [SQLite / PostgreSQL / MySQL] – compatível com todos
-- [Pydantic](https://docs.pydantic.dev/)
-- [Uvicorn](https://www.uvicorn.org/)
+- [MongoDB](https://www.mongodb.com/)
 
 ---
 
 ## ▶️ Como Executar
 
 1. **Clone o repositório**:
+
    ```bash
    git clone https://github.com/seuusuario/sistema-rh.git
    ```
@@ -82,66 +84,13 @@ Este projeto consiste em uma **API RESTful** para gerenciamento de um **Sistema 
 2. **Configure o banco de dados e variáveis de ambiente**:
 
    Crie um arquivo `.env` com o seguinte conteúdo:
+
    ```env
-   DATABASE_URL=sqlite:///./rh.db
+   MONGO_URL=mongodb://localhost:27017/
    ```
 
-3. **Crie um arquivo alembic.ini na raiz do repositório**
-   ```
-   [alembic]
-   script_location = %(here)s/alembic
-   prepend_sys_path = .
-   path_separator = os
-   sqlalchemy.url = sqlalchemy.url = postgresql+psycopg2://user:SENHA@localhost:5432/rh
+3. **Inicie o servidor**:
 
-   [post_write_hooks]
-
-   [loggers]
-   keys = root,sqlalchemy,alembic
-
-   [handlers]
-   keys = console
-
-   [formatters]
-   keys = generic
-
-   [logger_root]
-   level = WARNING
-   handlers = console
-   qualname =
-
-   [logger_sqlalchemy]
-   level = WARNING
-   handlers =
-   qualname = sqlalchemy.engine
-
-   [logger_alembic]
-   level = INFO
-   handlers =
-   qualname = alembic
-
-   [handler_console]
-   class = StreamHandler
-   args = (sys.stderr,)
-   level = NOTSET
-   formatter = generic
-
-   [formatter_generic]
-   format = %(levelname)-5.5s [%(name)s] %(message)s
-   datefmt = %H:%M:%S
-   ```
-
-4. **Execute o comando**
-   ```bash
-   alembic revision --autogenerate -m "Migracao inicial"
-   ```
-
-5. **Execute as migrações Alembic**:
-   ```bash
-   alembic upgrade head
-   ```
-
-6. **Inicie o servidor**:
    ```bash
    uvicorn app.main:app --reload
    ```
