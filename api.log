@@ -1,0 +1,35 @@
+2025-07-03 10:37:18,151 - INFO - 2 benefícios listados com sucesso.
+2025-07-03 10:39:03,705 - INFO - Benefício ID 6865ee60bd50b9f036626c4d atualizado com sucesso.
+2025-07-03 10:39:17,152 - INFO - 2 benefícios listados com sucesso.
+2025-07-03 10:40:02,021 - INFO - Benefício ID 6865eeb8bd50b9f036626c4e atualizado com sucesso.
+2025-07-03 10:40:33,220 - INFO - Benefício criado com sucesso: {'_id': '68668851e7e866f1461c4510', 'name': 'Vale Refeição Plus', 'description': 'Aceito em ampla rede de restaurantes e lanchonetes.', 'value': 600.0, 'type': 'vale-refeição', 'active': True}
+2025-07-03 10:40:41,582 - INFO - Benefício criado com sucesso: {'_id': '68668859e7e866f1461c4511', 'name': 'Auxílio Home Office', 'description': 'Ajuda de custo para energia, internet e estrutura remota.', 'value': 200.0, 'type': 'ajuda de custo', 'active': True}
+2025-07-03 10:40:46,909 - INFO - Benefício criado com sucesso: {'_id': '6866885ee7e866f1461c4512', 'name': 'Plano Odontológico Brilho Sorriso', 'description': 'Cobertura odontológica completa com rede nacional.', 'value': 75.0, 'type': 'benefício odontológico', 'active': True}
+2025-07-03 10:40:54,944 - INFO - Benefício criado com sucesso: {'_id': '68668866e7e866f1461c4513', 'name': 'Vale Transporte SP', 'description': 'Cobertura de transporte público metropolitano.', 'value': 160.0, 'type': 'vale-transporte', 'active': False}
+2025-07-03 10:41:02,753 - INFO - 6 benefícios listados com sucesso.
+2025-07-03 10:41:29,269 - INFO - Benefício recuperado com sucesso: {'_id': '6865eeb8bd50b9f036626c4e', 'name': 'Vale-Transporte Mensal', 'description': 'Valor creditado mensalmente para transporte público urbano.', 'value': 150.0, 'type': 'benefício transporte', 'active': True}
+2025-07-03 10:41:38,220 - INFO - Benefício ID 6865eeb8bd50b9f036626c4e deletado com sucesso.
+2025-07-03 10:45:34,245 - WARNING - ID inválido fornecido: count
+2025-07-03 10:54:52,371 - INFO - 4 funcionários encontrados.
+2025-07-03 10:55:23,890 - WARNING - ID inválido fornecido: get_by_admission_date
+2025-07-03 10:56:17,047 - WARNING - ID inválido fornecido: get_by_admission_date
+2025-07-03 10:56:45,817 - WARNING - ID inválido fornecido: get_by_admission_date
+2025-07-03 10:56:57,381 - INFO - 1 funcionários encontrados com data de admissão: 2022-11-10
+2025-07-03 10:58:52,582 - INFO - 4 funcionários encontrados.
+2025-07-03 11:01:54,492 - INFO - 5 benefícios listados com sucesso.
+2025-07-03 11:02:14,875 - INFO - 2 benefícios encontrados com o nome: Plano
+2025-07-03 11:07:21,753 - INFO - 5 benefícios listados com sucesso.
+2025-07-03 11:11:02,612 - INFO - 4 funcionários encontrados.
+2025-07-03 11:11:58,099 - INFO - Departamento criado com sucesso: {'_id': '68668fae1192f220ab2f0621', 'name': 'Departamento de Tecnologia', 'location': 'São Paulo - SP', 'description': 'Responsável por desenvolvimento, design e gerenciamento de sistemas.', 'extension': '3101', 'employee_ids': ['6865d09641668dc65b36dc64', '6865d0b341668dc65b36dc65', '6865d0ba41668dc65b36dc66', '6865d0c741668dc65b36dc67'], 'manager_id': '6865d0ba41668dc65b36dc66'}
+2025-07-03 11:12:10,366 - INFO - 4 departamentos encontrados
+2025-07-03 11:12:51,078 - INFO - 5 benefícios listados com sucesso.
+2025-07-03 11:13:30,537 - INFO - Funcionário criado com sucesso: {'_id': '6866900a1192f220ab2f0622', 'name': 'Amanda Ribeiro', 'cpf': '111.111.111-11', 'position': 'Analista de Sistemas', 'admission_date': datetime.datetime(2023, 1, 10, 9, 0), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['6865ee60bd50b9f036626c4d', '68668851e7e866f1461c4510']}
+2025-07-03 11:13:47,510 - INFO - Funcionário criado com sucesso: {'_id': '6866901b1192f220ab2f0623', 'name': 'Bruno Almeida', 'cpf': '222.222.222-22', 'position': 'Engenheiro de Software', 'admission_date': datetime.datetime(2022, 5, 23, 10, 30), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['68668859e7e866f1461c4511', '6865ee60bd50b9f036626c4d']}
+2025-07-03 11:14:01,992 - INFO - Funcionário criado com sucesso: {'_id': '686690291192f220ab2f0624', 'name': 'Carla Souza', 'cpf': '333.333.333-33', 'position': 'Designer UX', 'admission_date': datetime.datetime(2024, 3, 5, 11, 15), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['6866885ee7e866f1461c4512']}
+2025-07-03 11:14:20,602 - INFO - Funcionário criado com sucesso: {'_id': '6866903c1192f220ab2f0625', 'name': 'Daniel Oliveira', 'cpf': '444.444.444-44', 'position': 'Product Owner', 'admission_date': datetime.datetime(2021, 7, 18, 8, 45), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['68668851e7e866f1461c4510', '68668866e7e866f1461c4513']}
+2025-07-03 11:14:33,463 - INFO - Funcionário criado com sucesso: {'_id': '686690491192f220ab2f0626', 'name': 'Eduarda Martins', 'cpf': '555.555.555-55', 'position': 'Analista de Dados', 'admission_date': datetime.datetime(2023, 9, 12, 14, 0), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['6866885ee7e866f1461c4512', '68668859e7e866f1461c4511']}
+2025-07-03 11:14:43,390 - INFO - Funcionário criado com sucesso: {'_id': '686690531192f220ab2f0627', 'name': 'Felipe Castro', 'cpf': '666.666.666-66', 'position': 'Scrum Master', 'admission_date': datetime.datetime(2022, 12, 1, 13, 0), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['6865ee60bd50b9f036626c4d']}
+2025-07-03 11:14:55,771 - INFO - Funcionário criado com sucesso: {'_id': '6866905f1192f220ab2f0628', 'name': 'Giovana Lima', 'cpf': '777.777.777-77', 'position': 'QA Engineer', 'admission_date': datetime.datetime(2024, 4, 8, 9, 30), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['68668851e7e866f1461c4510', '68668859e7e866f1461c4511', '6866885ee7e866f1461c4512']}
+2025-07-03 11:15:06,816 - INFO - Funcionário criado com sucesso: {'_id': '6866906a1192f220ab2f0629', 'name': 'Henrique Barros', 'cpf': '888.888.888-88', 'position': 'DevOps Engineer', 'admission_date': datetime.datetime(2023, 2, 28, 15, 20), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['6865ee60bd50b9f036626c4d', '68668866e7e866f1461c4513']}
+2025-07-03 11:15:20,426 - INFO - Funcionário criado com sucesso: {'_id': '686690781192f220ab2f062a', 'name': 'Isabela Ferreira', 'cpf': '999.999.999-99', 'position': 'Gerente de Produto', 'admission_date': datetime.datetime(2020, 6, 16, 10, 0), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['68668859e7e866f1461c4511', '6866885ee7e866f1461c4512']}
+2025-07-03 11:15:27,426 - INFO - Funcionário criado com sucesso: {'_id': '6866907f1192f220ab2f062b', 'name': 'José Carlos Mendes', 'cpf': '000.000.000-00', 'position': 'Especialista em Segurança', 'admission_date': datetime.datetime(2019, 10, 5, 16, 40), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['68668866e7e866f1461c4513']}

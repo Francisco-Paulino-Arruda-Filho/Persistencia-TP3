@@ -1,30 +1,26 @@
-from typing import Optional, TYPE_CHECKING, List
-from sqlmodel import SQLModel, Field, Relationship
+from typing import Optional, TYPE_CHECKING
+from pydantic import BaseModel
+from sqlmodel import Field, Relationship
 
 if TYPE_CHECKING:
-    from app.models.Employee import Employee
+    from app.models.Employee import EmployeeBase
 
-class PayrollBase(SQLModel):
-    gross_salary: float
+class PayrollBase(BaseModel):
+    id: Optional[str] = Field(None, alias="_id")
+    employee_id: str  # N:1
     deductions: float
+    discount: float
     net_salary: float
-    reference_month: str
+    reference_month: str  # YYYY-MM
 
-class Payroll(PayrollBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
-    employee_id: int = Field(default=None, foreign_key="employee.id")
-
-    employee: Optional["Employee"] = Relationship(back_populates="payrolls")
 
 class PayrollCreate(PayrollBase):
-    employee_id: int
+    pass
 
-class PayrollRead(PayrollBase):
-    id: int
+class PayrollOut(PayrollBase):
+    employee: Optional["EmployeeBase"] = Relationship(back_populates="payrolls")
 
-class PayrollUpdate(PayrollBase):
-    gross_salary: Optional[float] = None
-    deductions: Optional[float] = None
-    net_salary: Optional[float] = None
-    reference_month: Optional[str] = None
-    employee_id: Optional[int] = None
+    class Config:
+        orm_mode = True  # Permite que o modelo seja usado com ORMs
+        json_encoders = {str: str}  # Serializa strings como strings no JSON
+        populate_by_name = True  # Permite que o alias (_id) seja populado por id

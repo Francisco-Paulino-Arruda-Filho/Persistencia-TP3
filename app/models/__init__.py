@@ -1,7 +1,23 @@
-from .Benefit import Benefit
-from .Department import Department
-from .Employee import Employee
-from .EmployeeBenefit import EmployeeBenefit
-from .Payroll import Payroll
+from .Benefit import BenefitBase, BenefitCreate, BenefitOut
+from .Department import DepartmentBase, DepartmentCreate, DepartmentOut
+from .Employee import EmployeeBase, EmployeeCreate, EmployeeOut
+from .EmployeeBenefit import EmployeeBenefitBase, EmployeeBenefitCreate, EmployeeBenefitOut
+from .Payroll import PayrollBase, PayrollCreate, PayrollOut
 
-__all__ = ["Benefit", "Department", "Employee", "EmployeeBenefit", "Payroll"]
+__all__ = [
+    "BenefitBase",
+    "BenefitCreate",
+    "BenefitOut",
+    "DepartmentBase",
+    "DepartmentCreate",
+    "DepartmentOut",
+    "EmployeeBase",
+    "EmployeeCreate",
+    "EmployeeOut",
+    "EmployeeBenefitBase",
+    "EmployeeBenefitCreate",
+    "EmployeeBenefitOut",
+    "PayrollBase",
+    "PayrollCreate",
+    "PayrollOut",
+]
