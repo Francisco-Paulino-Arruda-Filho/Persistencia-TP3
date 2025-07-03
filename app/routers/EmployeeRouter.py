@@ -5,7 +5,7 @@ from bson.errors import InvalidId
 from typing import List
 from ..logs.logger import logger
 from ..core.db import employee_collection
-from app.models.Employee import EmployeeCreate, EmployeeOut
+from app.models.Employee import EmployeeCreate, EmployeeOut, PaginatedEmployeeResponse
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
@@ -38,19 +38,24 @@ async def create_employee(employee: EmployeeCreate):
         raise HTTPException(status_code=500, detail="Erro ao criar funcionário")
 
 
-# 🔹 Listar todos os funcionários
-@router.get("/", response_model=List[EmployeeOut])
-async def list_employees():
+@router.get("/", response_model=PaginatedEmployeeResponse)
+async def list_employees(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1)):
+    logger.debug(f"Listando funcionários com skip={skip}, limit={limit}")
     try:
-        logger.debug("Listando todos os funcionários.")
-        employees = await employee_collection.find().to_list(length=None)
+        total = await employee_collection.count_documents({})
+        employees = await employee_collection.find().skip(skip).limit(limit).to_list(length=limit)
         for emp in employees:
             emp["_id"] = str(emp["_id"])
-        logger.info(f"{len(employees)} funcionários encontrados.")
-        return employees
+        logger.info(f"{len(employees)} funcionários encontrados")
+        return {
+            "total": total,
+            "skip": skip,
+            "limit": limit,
+            "data": employees
+        }
     except Exception as e:
         logger.exception(f"Erro ao listar funcionários: {e}")
-        raise HTTPException(status_code=500, detail="Erro ao listar funcionários")
+        raise HTTPException(status_code=500, detail="Erro interno ao listar funcionários")
 
 # 🔹 Atualizar funcionário
 @router.put("/{employee_id}", response_model=EmployeeOut)

@@ -4,7 +4,7 @@ from bson.errors import InvalidId
 from typing import List
 from ..core.db import benefit_collection
 from ..logs.logger import logger
-from app.models.Benefit import BenefitOut, BenefitCreate
+from app.models.Benefit import BenefitOut, BenefitCreate, PaginatedBenefitResponse
 
 router = APIRouter(prefix="/benefits", tags=["Benefits"])
 
@@ -17,15 +17,21 @@ def object_id(id_str: str):
         raise HTTPException(status_code=400, detail="ID inválido")
 
 # 🔹 Listar benefícios com paginação
-@router.get("/", response_model=List[BenefitOut])
-async def list_benefits(skip: int = 0, limit: int = 10):
+@router.get("/", response_model=PaginatedBenefitResponse)
+async def list_benefits(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1)):
     try:
         logger.debug(f"Listando benefícios com skip={skip}, limit={limit}")
+        total = await benefit_collection.count_documents({})
         benefits = await benefit_collection.find().skip(skip).limit(limit).to_list(length=limit)
         for benefit in benefits:
             benefit["_id"] = str(benefit["_id"])
         logger.info(f"{len(benefits)} benefícios listados com sucesso.")
-        return benefits
+        return {
+            "total": total,
+            "skip": skip,
+            "limit": limit,
+            "data": benefits
+        }
     except Exception as e:
         logger.exception(f"Erro ao listar benefícios: {e}")
         raise HTTPException(status_code=500, detail="Erro ao listar benefícios")

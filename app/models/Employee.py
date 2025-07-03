@@ -34,3 +34,9 @@ class EmployeeOut(EmployeeBase):
         "populate_by_name": True,
         "from_attributes": True
     }
+
+class PaginatedEmployeeResponse(BaseModel):
+    total: int
+    skip: int
+    limit: int
+    data: List[EmployeeOut]

@@ -44,3 +44,6 @@
 2025-07-03 13:24:22,092 - INFO - Departamento criado com sucesso: {'_id': '6866aeb6ebcc4ca5550726d5', 'name': 'Marketing', 'location': 'São Paulo - SP', 'description': 'Criação de campanhas, branding e posicionamento no mercado.', 'extension': '4202', 'employee_ids': ['6865d0c741668dc65b36dc67'], 'manager_id': '6865d0c741668dc65b36dc67'}
 2025-07-03 13:24:31,110 - INFO - Departamento criado com sucesso: {'_id': '6866aebfebcc4ca5550726d6', 'name': 'Financeiro', 'location': 'Curitiba - PR', 'description': 'Responsável pelo controle orçamentário, pagamentos e relatórios financeiros.', 'extension': '4404', 'employee_ids': ['6865d09641668dc65b36dc64', '6865d0b341668dc65b36dc65'], 'manager_id': '6865d0ba41668dc65b36dc66'}
 2025-07-03 13:24:38,905 - INFO - Departamento criado com sucesso: {'_id': '6866aec6ebcc4ca5550726d7', 'name': 'Atendimento ao Cliente', 'location': 'Fortaleza - CE', 'description': 'Suporte ao cliente, SAC e resolução de problemas.', 'extension': '4505', 'employee_ids': [], 'manager_id': '6865d0c741668dc65b36dc67'}
+2025-07-03 13:52:17,630 - INFO - 5 departamentos encontrados
+2025-07-03 13:52:36,020 - INFO - 3 departamentos encontrados
+2025-07-03 14:07:54,700 - INFO - 3 funcionários encontrados

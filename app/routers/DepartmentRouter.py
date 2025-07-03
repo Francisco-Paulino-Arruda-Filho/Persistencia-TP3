@@ -4,7 +4,7 @@ from bson.errors import InvalidId
 from typing import List
 from ..core.db import department_collection
 from ..logs.logger import logger
-from app.models.Department import DepartmentOut, DepartmentCreate
+from app.models.Department import DepartmentOut, DepartmentCreate, PaginatedDepartmentResponse
 
 router = APIRouter(prefix="/departments", tags=["Departments"])
 
@@ -24,19 +24,25 @@ async def create_department(department: DepartmentCreate):
         logger.exception(f"Erro ao criar departamento: {str(e)}")
         raise HTTPException(status_code=500, detail="Erro interno ao criar departamento")
 
-@router.get("/", response_model=List[DepartmentOut])
+@router.get("/", response_model=PaginatedDepartmentResponse)
 async def list_departments(skip: int = 0, limit: int = 10):
     logger.debug(f"Listando departamentos com skip={skip}, limit={limit}")
     try:
+        total = await department_collection.count_documents({})
         departments = await department_collection.find().skip(skip).limit(limit).to_list(length=limit)
         for dep in departments:
             dep["_id"] = str(dep["_id"])
         logger.info(f"{len(departments)} departamentos encontrados")
-        return departments
+        return {
+            "total": total,
+            "skip": skip,
+            "limit": limit,
+            "data": departments
+        }
     except Exception:
         logger.exception("Erro ao listar departamentos")
         raise HTTPException(status_code=500, detail="Erro interno ao listar departamentos")
-
+    
 @router.get("/count")
 async def count_departments():
     try:

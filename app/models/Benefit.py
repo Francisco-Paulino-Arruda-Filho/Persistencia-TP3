@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import List, Optional
 
 from bson import ObjectId
 from pydantic import BaseModel, Field
@@ -28,3 +28,9 @@ class BenefitOut(BenefitBase):
         json_encoders = {ObjectId: str}
         populate_by_name = True
         from_attributes = True  # Substitui orm_mode no Pydantic v2
+
+class PaginatedBenefitResponse(BaseModel):
+    total: int
+    skip: int
+    limit: int
+    data: List[BenefitOut]

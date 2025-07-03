@@ -33,3 +33,9 @@ class DepartmentOut(DepartmentBase):
     class Config:
         json_encoders = {ObjectId: str}
         populate_by_name = True
+
+class PaginatedDepartmentResponse(BaseModel):
+    total: int
+    skip: int
+    limit: int
+    data: List[DepartmentOut]
