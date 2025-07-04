@@ -48,3 +48,132 @@
 2025-07-03 13:52:36,020 - INFO - 3 departamentos encontrados
 2025-07-03 14:07:54,700 - INFO - 3 funcionários encontrados
 2025-07-03 14:10:08,540 - INFO - 2 benefícios listados com sucesso.
+2025-07-03 15:00:09,035 - INFO - 8 departamentos encontrados
+2025-07-03 15:01:47,479 - WARNING - Departamento ID 6865d09641668dc65b36dc64 não encontrado
+2025-07-03 15:01:47,480 - ERROR - Erro ao buscar departamento ID 6865d09641668dc65b36dc64
+Traceback (most recent call last):
+  File "C:\Users\fpaul\Documents\GitHub\Persistencia-TP3\app\routers\DepartmentRouter.py", line 64, in get_department
+    raise HTTPException(status_code=404, detail="Departamento não encontrado")
+fastapi.exceptions.HTTPException: 404: Departamento não encontrado
+2025-07-03 15:02:18,708 - WARNING - Funcionário com ID 6865d09641668dc65b36dc64 não encontrado.
+2025-07-03 15:02:54,139 - WARNING - Funcionário com ID 6865d09641668dc65b36dc64 não encontrado.
+2025-07-03 15:03:06,315 - INFO - 10 funcionários encontrados
+2025-07-03 15:03:22,372 - INFO - 5 benefícios listados com sucesso.
+2025-07-03 15:03:59,145 - INFO - 0 funcionários encontrados com departamento 6865767ea1d6f1cf3c0271de e benefício 68668866e7e866f1461c4513
+2025-07-03 15:04:21,830 - INFO - 0 funcionários encontrados com departamento 6865767ea1d6f1cf3c0271de e benefício 6866885ee7e866f1461c4512
+2025-07-03 15:04:38,853 - INFO - 0 funcionários encontrados com departamento 6865767ea1d6f1cf3c0271de e benefício 68668859e7e866f1461c4511
+2025-07-03 15:05:04,894 - INFO - 0 funcionários encontrados com departamento 6865767ea1d6f1cf3c0271de e benefício 68668851e7e866f1461c4510
+2025-07-03 15:07:09,658 - INFO - 8 departamentos encontrados
+2025-07-03 15:07:29,124 - WARNING - Departamento ID 6865d0ba41668dc65b36dc66 não encontrado
+2025-07-03 15:07:29,125 - ERROR - Erro ao buscar departamento ID 6865d0ba41668dc65b36dc66
+Traceback (most recent call last):
+  File "C:\Users\fpaul\Documents\GitHub\Persistencia-TP3\app\routers\DepartmentRouter.py", line 64, in get_department
+    raise HTTPException(status_code=404, detail="Departamento não encontrado")
+fastapi.exceptions.HTTPException: 404: Departamento não encontrado
+2025-07-03 15:08:29,000 - INFO - 10 funcionários encontrados
+2025-07-03 15:09:50,913 - WARNING - Funcionário com ID 6865d09641668dc65b36dc64 não encontrado.
+2025-07-03 15:10:08,563 - INFO - Funcionário recuperado com sucesso: {'_id': '686690531192f220ab2f0627', 'name': 'Felipe Castro', 'cpf': '666.666.666-66', 'position': 'Scrum Master', 'admission_date': datetime.datetime(2022, 12, 1, 13, 0), 'department_id': 'departamento_id_exemplo', 'pay_rool_id': 'folha_id_exemplo', 'benefits_id': ['6865ee60bd50b9f036626c4d']}
+2025-07-03 15:10:48,738 - INFO - 0 departamentos encontrados com funcionário ID 686690531192f220ab2f0627
+2025-07-03 15:11:06,571 - INFO - 10 funcionários encontrados
+2025-07-03 15:11:22,230 - INFO - 8 departamentos encontrados
+2025-07-03 15:11:59,214 - INFO - 0 funcionários encontrados com departamento 6866aec6ebcc4ca5550726d7 e benefício 68668851e7e866f1461c4510
+2025-07-03 15:12:08,320 - INFO - 5 benefícios listados com sucesso.
+2025-07-03 15:12:24,349 - INFO - 0 funcionários encontrados com departamento 6866aec6ebcc4ca5550726d7 e benefício 68668866e7e866f1461c4513
+2025-07-03 15:12:28,690 - INFO - 0 funcionários encontrados com departamento 6866aec6ebcc4ca5550726d7 e benefício 68668866e7e866f1461c4512
+2025-07-03 15:12:33,558 - INFO - 0 funcionários encontrados com departamento 6866aec6ebcc4ca5550726d7 e benefício 68668866e7e866f1461c4511
+2025-07-03 15:14:14,452 - INFO - Benefício recuperado com sucesso: {'_id': '6865ee60bd50b9f036626c4d', 'name': 'Plano de Saúde Premium', 'description': 'Cobertura completa com rede nacional de hospitais e clínicas.', 'value': 350.0, 'type': 'benefício saúde', 'active': True}
+2025-07-03 15:16:11,524 - INFO - 10 funcionários encontrados
+2025-07-03 15:16:33,997 - INFO - 0 departamentos encontrados com funcionário ID 686690531192f220ab2f0627
+2025-07-03 15:17:41,573 - INFO - 10 funcionários encontrados
+2025-07-03 15:19:12,633 - INFO - 8 departamentos encontrados
+2025-07-03 15:19:35,200 - INFO - Funcionário ID 686690531192f220ab2f0627 atualizado com sucesso.
+2025-07-03 15:19:59,224 - INFO - 0 departamentos encontrados com funcionário ID 6866aec6ebcc4ca5550726d7
+2025-07-03 15:20:27,166 - INFO - 0 departamentos encontrados com funcionário ID 6865d0b341668dc65b36dc65
+2025-07-03 15:24:58,148 - INFO - Benefício criado com sucesso: {'_id': '6866cafacc6d9f994c7507c6', 'name': 'string', 'description': 'string', 'value': 0.0, 'type': 'string', 'active': True}
+2025-07-03 15:25:28,767 - INFO - Benefício criado com sucesso: {'_id': '6866cb18cc6d9f994c7507c7', 'name': 'Plano de Saúde Básico', 'description': 'Cobertura de consultas, exames e internações em rede credenciada.', 'value': 300.0, 'type': 'benefício saúde', 'active': True}
+2025-07-03 15:26:06,039 - INFO - Benefício criado com sucesso: {'_id': '6866cb3ecc6d9f994c7507c8', 'name': 'Vale Refeição', 'description': 'Crédito diário para alimentação em restaurantes e lanchonetes.', 'value': 22.0, 'type': 'benefício alimentação', 'active': True}
+2025-07-03 15:26:12,456 - INFO - Benefício criado com sucesso: {'_id': '6866cb44cc6d9f994c7507c9', 'name': 'Auxílio Home Office', 'description': 'Ajuda de custo mensal para despesas com internet e energia.', 'value': 120.0, 'type': 'benefício remoto', 'active': True}
+2025-07-03 15:26:18,691 - INFO - Benefício criado com sucesso: {'_id': '6866cb4acc6d9f994c7507ca', 'name': 'Bolsa de Estudos', 'description': 'Subsídio para cursos de graduação ou pós-graduação.', 'value': 500.0, 'type': 'benefício educação', 'active': False}
+2025-07-03 15:26:25,083 - INFO - Benefício criado com sucesso: {'_id': '6866cb51cc6d9f994c7507cb', 'name': 'Bônus de Desempenho Trimestral', 'description': 'Valor variável de acordo com metas atingidas.', 'value': 1000.0, 'type': 'recompensa', 'active': True}
+2025-07-03 15:27:11,357 - INFO - Benefício criado com sucesso: {'_id': '6866cb7fcc6d9f994c7507cc', 'name': 'Kit de Higiene para as Mãos', 'description': 'Contém álcool em gel, creme hidratante e sabonete antibacteriano.', 'value': 40.0, 'type': 'benefício saúde', 'active': True}
+2025-07-03 15:27:16,216 - INFO - Benefício criado com sucesso: {'_id': '6866cb84cc6d9f994c7507cd', 'name': 'Sessão de Fisioterapia para as Mãos', 'description': 'Sessões semanais para prevenção e tratamento de LER/DORT.', 'value': 80.0, 'type': 'benefício ocupacional', 'active': True}
+2025-07-03 15:27:22,366 - INFO - Benefício criado com sucesso: {'_id': '6866cb8acc6d9f994c7507ce', 'name': 'Vale Manicure', 'description': 'Crédito mensal para serviços de manicure e cuidados com as unhas.', 'value': 60.0, 'type': 'benefício estética', 'active': True}
+2025-07-03 15:27:29,060 - INFO - Benefício criado com sucesso: {'_id': '6866cb91cc6d9f994c7507cf', 'name': 'Luvas de Proteção', 'description': 'Par de luvas de alta resistência para trabalhos manuais pesados.', 'value': 25.0, 'type': 'equipamento de proteção', 'active': True}
+2025-07-03 15:27:37,243 - INFO - 10 benefícios listados com sucesso.
+2025-07-03 15:27:54,995 - INFO - Total de benefícios: 10
+2025-07-03 15:28:27,337 - INFO - Benefício recuperado com sucesso: {'_id': '6866cafacc6d9f994c7507c6', 'name': 'string', 'description': 'string', 'value': 0.0, 'type': 'string', 'active': True}
+2025-07-03 15:28:36,801 - INFO - Benefício recuperado com sucesso: {'_id': '6866cafacc6d9f994c7507c6', 'name': 'string', 'description': 'string', 'value': 0.0, 'type': 'string', 'active': True}
+2025-07-03 15:28:54,395 - INFO - Benefício recuperado com sucesso: {'_id': '6866cb18cc6d9f994c7507c7', 'name': 'Plano de Saúde Básico', 'description': 'Cobertura de consultas, exames e internações em rede credenciada.', 'value': 300.0, 'type': 'benefício saúde', 'active': True}
+2025-07-03 15:28:55,005 - INFO - Benefício recuperado com sucesso: {'_id': '6866cb18cc6d9f994c7507c7', 'name': 'Plano de Saúde Básico', 'description': 'Cobertura de consultas, exames e internações em rede credenciada.', 'value': 300.0, 'type': 'benefício saúde', 'active': True}
+2025-07-03 15:29:12,883 - INFO - Benefício recuperado com sucesso: {'_id': '6866cafacc6d9f994c7507c6', 'name': 'string', 'description': 'string', 'value': 0.0, 'type': 'string', 'active': True}
+2025-07-03 15:30:05,512 - INFO - Benefício ID 6866cafacc6d9f994c7507c6 atualizado com sucesso.
+2025-07-03 15:30:15,961 - INFO - Benefício ID 6866cafacc6d9f994c7507c6 deletado com sucesso.
+2025-07-03 15:31:10,720 - INFO - Departamento criado com sucesso: {'_id': '6866cc6ecc6d9f994c7507d0', 'name': 'Tecnologia da Informação', 'location': 'Bloco A - 2º andar', 'description': 'Responsável pela infraestrutura, sistemas e suporte técnico.', 'extension': 'TI01', 'employee_ids': [], 'manager_id': '66f9d3c445fbc3b04a0d2c9f'}
+2025-07-03 15:31:21,610 - INFO - Departamento criado com sucesso: {'_id': '6866cc79cc6d9f994c7507d1', 'name': 'Financeiro', 'location': 'Bloco B - 1º andar', 'description': 'Controle de contas, folha de pagamento e relatórios contábeis.', 'extension': 'FIN02', 'employee_ids': [], 'manager_id': '66f9d3e845fbc3b04a0d2ca0'}
+2025-07-03 15:31:28,512 - INFO - Departamento criado com sucesso: {'_id': '6866cc80cc6d9f994c7507d2', 'name': 'Recursos Humanos', 'location': 'Bloco C - 3º andar', 'description': 'Gestão de pessoas, recrutamento, benefícios e treinamento.', 'extension': 'RH03', 'employee_ids': [], 'manager_id': '66f9d40045fbc3b04a0d2ca9'}
+2025-07-03 15:31:37,380 - INFO - Departamento criado com sucesso: {'_id': '6866cc89cc6d9f994c7507d3', 'name': 'Marketing', 'location': 'Bloco D - 2º andar', 'description': 'Divulgação, branding, redes sociais e comunicação institucional.', 'extension': 'MKT04', 'employee_ids': [], 'manager_id': '66f9d41b45fbc3b04a0d2cb1'}
+2025-07-03 15:31:43,527 - INFO - Departamento criado com sucesso: {'_id': '6866cc8fcc6d9f994c7507d4', 'name': 'Operações', 'location': 'Bloco E - Térreo', 'description': 'Coordena os processos operacionais da empresa.', 'extension': 'OP05', 'employee_ids': [], 'manager_id': '66f9d42e45fbc3b04a0d2cb9'}
+2025-07-03 15:31:59,867 - INFO - 5 departamentos encontrados
+2025-07-03 15:49:18,205 - INFO - 5 departamentos encontrados
+2025-07-03 15:50:01,963 - INFO - 5 departamentos encontrados
+2025-07-03 15:50:54,532 - INFO - Departamento criado com sucesso: {'_id': '6866d10e75241280b790d603', 'name': 'Manutenção', 'location': 'Bloco F - Subsolo', 'description': 'Responsável pela manutenção predial, elétrica e hidráulica.', 'extension': 'MTN06', 'employee_ids': [], 'manager_id': '66f9d45045fbc3b04a0d2cc2'}
+2025-07-03 15:50:59,600 - INFO - Departamento criado com sucesso: {'_id': '6866d11375241280b790d604', 'name': 'Logística', 'location': 'Galpão 1', 'description': 'Gerencia o armazenamento, transporte e distribuição de produtos.', 'extension': 'LOG07', 'employee_ids': [], 'manager_id': '66f9d46a45fbc3b04a0d2ccb'}
+2025-07-03 15:51:06,155 - INFO - Departamento criado com sucesso: {'_id': '6866d11a75241280b790d605', 'name': 'Comercial', 'location': 'Bloco G - 1º andar', 'description': 'Responsável pelas vendas, relacionamento com clientes e negociações.', 'extension': 'COM08', 'employee_ids': [], 'manager_id': '66f9d47e45fbc3b04a0d2cd4'}
+2025-07-03 15:51:11,040 - INFO - Departamento criado com sucesso: {'_id': '6866d11f75241280b790d606', 'name': 'Jurídico', 'location': 'Bloco H - 4º andar', 'description': 'Assessoria legal, contratos, processos e conformidade regulatória.', 'extension': 'JUR09', 'employee_ids': [], 'manager_id': '66f9d49245fbc3b04a0d2cdd'}
+2025-07-03 15:51:16,983 - INFO - Departamento criado com sucesso: {'_id': '6866d12475241280b790d607', 'name': 'Pesquisa e Desenvolvimento', 'location': 'Bloco I - Laboratório Central', 'description': 'Inovação de produtos, testes e desenvolvimento tecnológico.', 'extension': 'PD10', 'employee_ids': [], 'manager_id': '66f9d4a645fbc3b04a0d2ce6'}
+2025-07-03 15:51:52,574 - INFO - 10 departamentos encontrados
+2025-07-03 15:52:34,619 - INFO - 9 benefícios listados com sucesso.
+2025-07-03 15:53:11,893 - INFO - Funcionário criado com sucesso: {'_id': '6866d19775241280b790d608', 'name': 'Lucas Oliveira', 'cpf': '12345678901', 'position': 'Desenvolvedor Backend', 'admission_date': datetime.datetime(2024, 1, 15, 9, 0), 'department_id': '6866cc6ecc6d9f994c7507d0', 'pay_rool_id': '707070707070707070707070', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb3ecc6d9f994c7507c8', '6866cb44cc6d9f994c7507c9']}
+2025-07-03 15:53:25,941 - INFO - Funcionário criado com sucesso: {'_id': '6866d1a575241280b790d609', 'name': 'Mariana Silva', 'cpf': '23456789012', 'position': 'Analista Financeiro', 'admission_date': datetime.datetime(2023, 3, 20, 8, 30), 'department_id': '6866cc79cc6d9f994c7507d1', 'pay_rool_id': '707070707070707070707071', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb3ecc6d9f994c7507c8']}
+2025-07-03 15:53:36,275 - INFO - Funcionário criado com sucesso: {'_id': '6866d1b075241280b790d60a', 'name': 'Carlos Mendes', 'cpf': '34567890123', 'position': 'Coordenador de RH', 'admission_date': datetime.datetime(2022, 8, 10, 10, 15), 'department_id': '6866cc80cc6d9f994c7507d2', 'pay_rool_id': '707070707070707070707072', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb4acc6d9f994c7507ca', '6866cb51cc6d9f994c7507cb']}
+2025-07-03 15:53:50,378 - INFO - Funcionário criado com sucesso: {'_id': '6866d1be75241280b790d60b', 'name': 'Ana Beatriz Costa', 'cpf': '45678901234', 'position': 'Especialista em Mídias Digitais', 'admission_date': datetime.datetime(2024, 5, 5, 9, 45), 'department_id': '6866cc89cc6d9f994c7507d3', 'pay_rool_id': '707070707070707070707073', 'benefits_id': ['6866cb3ecc6d9f994c7507c8', '6866cb8acc6d9f994c7507ce']}
+2025-07-03 15:54:08,261 - INFO - Funcionário criado com sucesso: {'_id': '6866d1d075241280b790d60c', 'name': 'João Pedro Almeida', 'cpf': '56789012345', 'position': 'Supervisor de Operações', 'admission_date': datetime.datetime(2021, 11, 30, 7, 30), 'department_id': '6866cc8fcc6d9f994c7507d4', 'pay_rool_id': '707070707070707070707074', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb3ecc6d9f994c7507c8', '6866cb51cc6d9f994c7507cb']}
+2025-07-03 15:54:19,434 - INFO - Funcionário criado com sucesso: {'_id': '6866d1db75241280b790d60d', 'name': 'Fernanda Rocha', 'cpf': '67890123456', 'position': 'Técnica de Manutenção', 'admission_date': datetime.datetime(2022, 4, 18, 13, 0), 'department_id': '6866d10e75241280b790d603', 'pay_rool_id': '707070707070707070707075', 'benefits_id': ['6866cb91cc6d9f994c7507cf', '6866cb7fcc6d9f994c7507cc']}
+2025-07-03 15:54:32,857 - INFO - Funcionário criado com sucesso: {'_id': '6866d1e875241280b790d60e', 'name': 'Rafael Souza', 'cpf': '78901234567', 'position': 'Assistente de Logística', 'admission_date': datetime.datetime(2023, 9, 1, 10, 0), 'department_id': '6866d11375241280b790d604', 'pay_rool_id': '707070707070707070707076', 'benefits_id': ['6866cb3ecc6d9f994c7507c8', '6866cb84cc6d9f994c7507cd']}
+2025-07-03 15:54:41,726 - INFO - Funcionário criado com sucesso: {'_id': '6866d1f175241280b790d60f', 'name': 'Isabela Fernandes', 'cpf': '89012345678', 'position': 'Executiva de Contas', 'admission_date': datetime.datetime(2022, 2, 14, 8, 0), 'department_id': '6866d11a75241280b790d605', 'pay_rool_id': '707070707070707070707077', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb3ecc6d9f994c7507c8', '6866cb8acc6d9f994c7507ce']}
+2025-07-03 15:54:54,674 - INFO - Funcionário criado com sucesso: {'_id': '6866d1fe75241280b790d610', 'name': 'Vinícius Lima', 'cpf': '90123456789', 'position': 'Advogado Corporativo', 'admission_date': datetime.datetime(2023, 7, 12, 9, 30), 'department_id': '6866d11f75241280b790d606', 'pay_rool_id': '707070707070707070707078', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb4acc6d9f994c7507ca', '6866cb51cc6d9f994c7507cb']}
+2025-07-03 15:55:04,080 - INFO - Funcionário criado com sucesso: {'_id': '6866d20875241280b790d611', 'name': 'Larissa Martins', 'cpf': '01234567890', 'position': 'Pesquisadora de Produtos', 'admission_date': datetime.datetime(2024, 10, 3, 14, 0), 'department_id': '6866d12475241280b790d607', 'pay_rool_id': '707070707070707070707079', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb44cc6d9f994c7507c9', '6866cb84cc6d9f994c7507cd']}
+2025-07-03 15:55:14,122 - INFO - 3 funcionários encontrados
+2025-07-03 15:56:49,886 - INFO - 0 funcionários encontrados com benefício ID 6866cb18cc6d9f994c7507c7
+2025-07-03 16:01:26,293 - INFO - 0 funcionários encontrados com benefício ID 6866cb18cc6d9f994c7507c7
+2025-07-03 16:03:53,502 - INFO - 9 benefícios listados com sucesso.
+2025-07-03 16:04:14,876 - INFO - 0 funcionários encontrados com o benefício 6866cb91cc6d9f994c7507cf
+2025-07-03 16:04:50,759 - INFO - Benefício recuperado com sucesso: {'_id': '6866cb91cc6d9f994c7507cf', 'name': 'Luvas de Proteção', 'description': 'Par de luvas de alta resistência para trabalhos manuais pesados.', 'value': 25.0, 'type': 'equipamento de proteção', 'active': True}
+2025-07-03 16:05:03,149 - INFO - 10 funcionários encontrados
+2025-07-03 16:05:25,401 - INFO - Benefício ID 6866cb18cc6d9f994c7507c7 deletado com sucesso.
+2025-07-03 16:06:34,603 - INFO - 8 benefícios listados com sucesso.
+2025-07-03 16:06:54,316 - INFO - Funcionário ID 6866d19775241280b790d608 atualizado com sucesso.
+2025-07-03 16:07:08,236 - INFO - 0 funcionários encontrados com o benefício 6866cb44cc6d9f994c7507c9
+2025-07-03 16:07:30,542 - INFO - Benefício recuperado com sucesso: {'_id': '6866cb44cc6d9f994c7507c9', 'name': 'Auxílio Home Office', 'description': 'Ajuda de custo mensal para despesas com internet e energia.', 'value': 120.0, 'type': 'benefício remoto', 'active': True}
+2025-07-03 16:09:13,831 - INFO - 10 funcionários encontrados
+2025-07-03 16:11:07,642 - INFO - 0 funcionários encontrados com o benefício 6866cb44cc6d9f994c7507c9
+2025-07-03 16:13:37,832 - INFO - 0 funcionários encontrados com o benefício 6866cb44cc6d9f994c7507c9
+2025-07-04 08:13:46,341 - INFO - 3 departamentos encontrados
+2025-07-04 08:15:22,481 - WARNING - Funcionário com ID 6866cc6ecc6d9f994c7507d0 não encontrado.
+2025-07-04 08:16:36,649 - INFO - 10 funcionários encontrados
+2025-07-04 08:17:15,845 - INFO - Departamento ID 6866cc6ecc6d9f994c7507d0 atualizado com sucesso
+2025-07-04 08:17:58,321 - WARNING - ID inválido: get_department_by_manager
+2025-07-04 08:18:19,583 - INFO - 10 funcionários encontrados
+2025-07-04 08:19:23,245 - WARNING - ID inválido: get_department_by_manager
+2025-07-04 08:19:40,851 - INFO - Funcionário recuperado com sucesso: {'_id': '6866d19775241280b790d608', 'name': 'Lucas Oliveira', 'cpf': '12345678901', 'position': 'Desenvolvedor Backend', 'admission_date': datetime.datetime(2024, 1, 15, 9, 0), 'department_id': '6866cc6ecc6d9f994c7507d0', 'pay_rool_id': '707070707070707070707070', 'benefits_id': ['6866cb44cc6d9f994c7507c9']}
+2025-07-04 08:20:17,944 - INFO - 0 departamentos encontrados com gerente ID 6866d19775241280b790d608
+2025-07-04 08:21:46,042 - INFO - 0 departamentos encontrados com gerente ID 6866d19775241280b790d608
+2025-07-04 08:23:54,013 - INFO - 0 departamentos encontrados com gerente ID 6866d19775241280b790d608
+2025-07-04 08:26:16,861 - INFO - 1 departamentos encontrados com gerente ID 6866d19775241280b790d608
+2025-07-04 08:28:59,291 - INFO - 1 departamentos encontrados com funcionário ID 6866d1a575241280b790d609
+2025-07-04 08:44:17,496 - INFO - 10 departamentos encontrados
+2025-07-04 08:44:56,562 - INFO - Funcionário recuperado com sucesso: {'_id': '6866d1a575241280b790d609', 'name': 'Mariana Silva', 'cpf': '23456789012', 'position': 'Analista Financeiro', 'admission_date': datetime.datetime(2023, 3, 20, 8, 30), 'department_id': '6866cc79cc6d9f994c7507d1', 'pay_rool_id': '707070707070707070707071', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb3ecc6d9f994c7507c8']}
+2025-07-04 08:45:25,200 - WARNING - Benefício com ID 6866cb18cc6d9f994c7507c7 não encontrado.
+2025-07-04 08:45:38,314 - INFO - 8 benefícios listados com sucesso.
+2025-07-04 08:45:52,734 - INFO - Benefício recuperado com sucesso: {'_id': '6866cb3ecc6d9f994c7507c8', 'name': 'Vale Refeição', 'description': 'Crédito diário para alimentação em restaurantes e lanchonetes.', 'value': 22.0, 'type': 'benefício alimentação', 'active': True}
+2025-07-04 08:48:13,181 - INFO - Funcionário recuperado com sucesso: {'_id': '6866d1a575241280b790d609', 'name': 'Mariana Silva', 'cpf': '23456789012', 'position': 'Analista Financeiro', 'admission_date': datetime.datetime(2023, 3, 20, 8, 30), 'department_id': '6866cc79cc6d9f994c7507d1', 'pay_rool_id': '707070707070707070707071', 'benefits_id': ['6866cb18cc6d9f994c7507c7', '6866cb3ecc6d9f994c7507c8']}
+2025-07-04 08:49:16,024 - INFO - Funcionário ID 6866d1a575241280b790d609 atualizado com sucesso.
+2025-07-04 08:49:49,672 - INFO - 0 funcionários encontrados com o benefício 6866cb3ecc6d9f994c7507c8 no departamento 6866cc6ecc6d9f994c7507d0
+2025-07-04 08:52:07,339 - INFO - 0 funcionários encontrados com o benefício 6866cb3ecc6d9f994c7507c8 no departamento 6866cc6ecc6d9f994c7507d0
+2025-07-04 09:12:02,053 - INFO - 10 funcionários encontrados
+2025-07-04 09:12:20,748 - INFO - 0 benefícios encontrados para o funcionário 6866d1a575241280b790d609
+2025-07-04 09:20:14,423 - INFO - 10 departamentos encontrados
+2025-07-04 09:20:27,524 - INFO - 1 departamentos encontrados com funcionário ID 6866d1a575241280b790d609
+2025-07-04 09:21:42,213 - INFO - 10 funcionários encontrados
+2025-07-04 09:22:01,488 - INFO - Funcionário recuperado com sucesso: {'_id': '6866d19775241280b790d608', 'name': 'Lucas Oliveira', 'cpf': '12345678901', 'position': 'Desenvolvedor Backend', 'admission_date': datetime.datetime(2024, 1, 15, 9, 0), 'department_id': '6866cc6ecc6d9f994c7507d0', 'pay_rool_id': '707070707070707070707070', 'benefits_id': ['6866cb44cc6d9f994c7507c9']}
+2025-07-04 09:22:11,103 - INFO - 1 benefícios encontrados para o funcionário 6866d19775241280b790d608

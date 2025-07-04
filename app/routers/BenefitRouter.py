@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Query, status
 from bson import ObjectId
 from bson.errors import InvalidId
 from typing import List
-from ..core.db import benefit_collection
+from ..core.db import benefit_collection, employee_collection
 from ..logs.logger import logger
 from app.models.Benefit import BenefitOut, BenefitCreate, PaginatedBenefitResponse
 
@@ -147,6 +147,45 @@ async def get_benefits_by_value_range(min_value: float, max_value: float):
     except Exception as e:
         logger.exception(f"Erro ao buscar benefícios por intervalo de valor: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar benefícios por intervalo de valor")
+
+@router.get("/get/benefit_by_employee/{employee_id}", response_model=List[BenefitOut])
+async def get_benefits_by_employee(employee_id: str):
+    logger.debug(f"Buscando benefícios do funcionário {employee_id}")
+    try:
+        try:
+            employee_oid = ObjectId(employee_id)
+        except Exception:
+            logger.warning(f"ID de funcionário inválido: {employee_id}")
+            raise HTTPException(status_code=400, detail="ID de funcionário inválido")
+
+        # Busca o funcionário
+        employee = await employee_collection.find_one({"_id": employee_oid})
+        if not employee:
+            logger.warning(f"Funcionário {employee_id} não encontrado")
+            raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+        # Extrai e converte os IDs dos benefícios (se existirem)
+        raw_benefit_ids = employee.get("benefits_id", [])
+        benefit_ids = []
+        for bid in raw_benefit_ids:
+            try:
+                benefit_ids.append(ObjectId(bid))
+            except Exception:
+                logger.warning(f"ID de benefício inválido encontrado no funcionário {employee_id}: {bid}")
+
+        if not benefit_ids:
+            logger.info(f"Funcionário {employee_id} não possui benefícios válidos")
+            return []
+
+        # Busca os benefícios no banco
+        benefits = await benefit_collection.find({"_id": {"$in": benefit_ids}}).to_list(length=None)
+
+        logger.info(f"{len(benefits)} benefícios encontrados para o funcionário {employee_id}")
+        return benefits
+
+    except Exception as e:
+        logger.exception(f"Erro ao buscar benefícios do funcionário {employee_id}: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar benefícios do funcionário")    
 
 # 🔹 Buscar benefício por ID
 @router.get("/{benefit_id}", response_model=BenefitOut)

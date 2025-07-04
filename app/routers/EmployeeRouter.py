@@ -2,13 +2,26 @@ from datetime import datetime, timedelta
 from fastapi import APIRouter, HTTPException, Query, status
 from bson import ObjectId
 from bson.errors import InvalidId
-from typing import List
+from typing import Any, Dict, List
 from ..logs.logger import logger
-from ..core.db import employee_collection
+from ..core.db import employee_collection, benefit_collection, department_collection
 from app.models.Employee import EmployeeCreate, EmployeeOut, PaginatedEmployeeResponse
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
+# 🔧 Utilitário para converter ObjectIds em strings
+def fix_objectid(doc):
+    if isinstance(doc, list):
+        return [fix_objectid(i) for i in doc]
+    if isinstance(doc, dict):
+        out = {}
+        for k, v in doc.items():
+            if isinstance(v, ObjectId):
+                out[k] = str(v)
+            else:
+                out[k] = fix_objectid(v)
+        return out
+    return doc
 
 # 🔹 Utilitário para converter ID
 def object_id(id_str: str):
@@ -164,6 +177,53 @@ async def get_by_name(name: str):
     except Exception as e:
         logger.exception(f"Erro ao buscar funcionários por nome {name}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar funcionários por nome")
+    
+@router.get("/benefits/{benefit_id}/departments/{department_id}/employees", response_model=List[Dict[str, Any]])
+async def get_employees_by_benefit_and_department(benefit_id: str, department_id: str):
+    try:
+        # Converte os IDs
+        try:
+            benefit_oid = ObjectId(benefit_id)
+            department_oid = ObjectId(department_id)
+        except Exception:
+            logger.warning(f"ID inválido fornecido: benefício={benefit_id}, departamento={department_id}")
+            raise HTTPException(status_code=400, detail="ID de benefício ou departamento inválido")
+
+        # Verifica se o benefício existe
+        benefit = await benefit_collection.find_one({"_id": benefit_oid})
+        if not benefit:
+            logger.warning(f"Benefício não encontrado: {benefit_id}")
+            raise HTTPException(status_code=404, detail="Benefício não encontrado")
+
+        # Verifica se o departamento existe
+        department = await department_collection.find_one({"_id": department_oid})
+        if not department:
+            logger.warning(f"Departamento não encontrado: {department_id}")
+            raise HTTPException(status_code=404, detail="Departamento não encontrado")
+
+        # Busca funcionários com o benefício e pertencentes ao departamento
+        employees_cursor = employee_collection.find({
+            "benefits_id": benefit_oid,
+            "department_id": department_oid  # Agora sim: ObjectId
+        })
+        employees = await employees_cursor.to_list(length=None)
+        employees = fix_objectid(employees)
+
+        logger.info(f"{len(employees)} funcionários encontrados com benefício {benefit_id} no departamento {department_id}")
+        return [
+            {
+                "benefit": fix_objectid(benefit),
+                "department": fix_objectid(department),
+                "employee": emp
+            }
+            for emp in employees
+        ]
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception(f"Erro ao buscar funcionários com benefício {benefit_id} no departamento {department_id}: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar funcionários com benefício e departamento")
     
 # 🔹 Buscar funcionário por ID
 @router.get("/{employee_id}", response_model=EmployeeOut)

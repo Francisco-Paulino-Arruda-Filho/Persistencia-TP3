@@ -53,24 +53,6 @@ async def count_departments():
         logger.exception("Erro ao contar departamentos")
         raise HTTPException(status_code=500, detail="Erro interno ao contar departamentos")
 
-@router.get("/{department_id}", response_model=DepartmentOut)
-async def get_department(department_id: str):
-    logger.debug(f"Buscando departamento com ID {department_id}")
-    try:
-        oid = ObjectId(department_id)
-        department = await department_collection.find_one({"_id": oid})
-        if not department:
-            logger.warning(f"Departamento ID {department_id} não encontrado")
-            raise HTTPException(status_code=404, detail="Departamento não encontrado")
-        department["_id"] = str(department["_id"])
-        return department
-    except InvalidId:
-        logger.warning(f"ID inválido: {department_id}")
-        raise HTTPException(status_code=400, detail="ID inválido")
-    except Exception:
-        logger.exception(f"Erro ao buscar departamento ID {department_id}")
-        raise HTTPException(status_code=500, detail="Erro interno ao buscar departamento")
-
 @router.put("/{department_id}", response_model=DepartmentOut)
 async def update_department(department_id: str, update_data: DepartmentCreate):
     logger.debug(f"Atualizando departamento ID {department_id} com dados {update_data}")
@@ -124,20 +106,48 @@ async def get_departments_by_name(name: str, skip: int = 0, limit: int = 10):
     except Exception:
         logger.exception("Erro ao buscar departamentos por nome")
         raise HTTPException(status_code=500, detail="Erro interno ao buscar departamentos por nome")
+    
+@router.get("/get_department_by_manager", response_model=List[DepartmentOut])
+async def get_departments_by_manager(manager_id: str):
+    logger.debug(f"Buscando departamentos com gerente ID {manager_id}")
+    try:
+        # Remover a conversão para ObjectId
+        departments = await department_collection.find({"manager_id": manager_id}).to_list(length=None)
+        for dep in departments:
+            dep["_id"] = str(dep["_id"])
+        logger.info(f"{len(departments)} departamentos encontrados com gerente ID {manager_id}")
+        return departments
+    except Exception:
+        logger.exception(f"Erro ao buscar departamentos por gerente {manager_id}")
+        raise HTTPException(status_code=500, detail="Erro interno ao buscar departamentos por gerente")
 
 @router.get("/get_by_employee/{employee_id}", response_model=List[DepartmentOut])
 async def get_departments_by_employee(employee_id: str):
     logger.debug(f"Buscando departamentos com funcionário ID {employee_id}")
     try:
-        oid = ObjectId(employee_id)
-        departments = await department_collection.find({"employees": oid}).to_list(length=None)
+        departments = await department_collection.find({"employee_ids": employee_id}).to_list(length=None)
         for dep in departments:
             dep["_id"] = str(dep["_id"])
         logger.info(f"{len(departments)} departamentos encontrados com funcionário ID {employee_id}")
         return departments
-    except InvalidId:
-        logger.warning(f"ID de funcionário inválido: {employee_id}")
-        raise HTTPException(status_code=400, detail="ID inválido")
     except Exception:
         logger.exception(f"Erro ao buscar departamentos por funcionário {employee_id}")
         raise HTTPException(status_code=500, detail="Erro interno ao buscar departamentos por funcionário")
+    
+@router.get("/{department_id}", response_model=DepartmentOut)
+async def get_department(department_id: str):
+    logger.debug(f"Buscando departamento com ID {department_id}")
+    try:
+        oid = ObjectId(department_id)
+        department = await department_collection.find_one({"_id": oid})
+        if not department:
+            logger.warning(f"Departamento ID {department_id} não encontrado")
+            raise HTTPException(status_code=404, detail="Departamento não encontrado")
+        department["_id"] = str(department["_id"])
+        return department
+    except InvalidId:
+        logger.warning(f"ID inválido: {department_id}")
+        raise HTTPException(status_code=400, detail="ID inválido")
+    except Exception:
+        logger.exception(f"Erro ao buscar departamento ID {department_id}")
+        raise HTTPException(status_code=500, detail="Erro interno ao buscar departamento")
