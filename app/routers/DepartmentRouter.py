@@ -1,8 +1,8 @@
 from fastapi import APIRouter, HTTPException
 from bson import ObjectId
 from bson.errors import InvalidId
-from typing import List
-from ..core.db import department_collection
+from typing import Any, Dict, List
+from ..core.db import department_collection, employee_collection, benefit_collection
 from ..logs.logger import logger
 from app.models.Department import DepartmentOut, DepartmentCreate, PaginatedDepartmentResponse
 
@@ -79,12 +79,26 @@ async def delete_department(department_id: str):
     logger.debug(f"Tentando deletar departamento ID {department_id}")
     try:
         oid = ObjectId(department_id)
-        result = await department_collection.delete_one({"_id": oid})
-        if result.deleted_count == 0:
+
+        # 1. Atualiza os funcionários, removendo o departamento deles
+        result_update = await employee_collection.update_many(
+            {"department_id": department_id},
+            {"$set": {"department_id": None}}
+        )
+        logger.info(f"{result_update.modified_count} funcionários tiveram o campo department_id removido")
+
+        # 2. Deleta o departamento
+        result_delete = await department_collection.delete_one({"_id": oid})
+        if result_delete.deleted_count == 0:
             logger.warning(f"Departamento ID {department_id} não encontrado para deleção")
             raise HTTPException(status_code=404, detail="Departamento não encontrado")
+
         logger.info(f"Departamento ID {department_id} deletado com sucesso")
-        return {"detail": "Departamento deletado com sucesso"}
+        return {
+            "detail": "Departamento deletado com sucesso",
+            "employees_updated": result_update.modified_count
+        }
+
     except InvalidId:
         logger.warning(f"ID inválido: {department_id}")
         raise HTTPException(status_code=400, detail="ID inválido")
@@ -133,6 +147,39 @@ async def get_departments_by_employee(employee_id: str):
     except Exception:
         logger.exception(f"Erro ao buscar departamentos por funcionário {employee_id}")
         raise HTTPException(status_code=500, detail="Erro interno ao buscar departamentos por funcionário")
+    
+@router.get("/departments/full_info", response_model=List[Dict[str, Any]])
+async def get_departments_with_employees_and_benefits():
+    try:
+        departments = await department_collection.find().to_list(length=None)
+        full_info = []
+
+        for dep in departments:
+            dep_id = str(dep["_id"])
+            employees = await employee_collection.find({"department_id": dep_id}).to_list(length=None)
+            
+            enriched_employees = []
+            for emp in employees:
+                benefit_ids = [ObjectId(bid) for bid in emp.get("benefits_id", [])]
+                benefits = await benefit_collection.find({"_id": {"$in": benefit_ids}}).to_list(length=None)
+                for b in benefits:
+                    b["_id"] = str(b["_id"])
+                emp["_id"] = str(emp["_id"])
+                emp["benefits"] = benefits
+                enriched_employees.append(emp)
+
+            full_info.append({
+                "department_id": dep_id,
+                "department_name": dep["name"],
+                "location": dep.get("location"),
+                "employees": enriched_employees
+            })
+
+        return full_info
+    except Exception as e:
+        logger.exception(f"Erro ao buscar estrutura completa dos departamentos: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar dados completos")
+
     
 @router.get("/{department_id}", response_model=DepartmentOut)
 async def get_department(department_id: str):

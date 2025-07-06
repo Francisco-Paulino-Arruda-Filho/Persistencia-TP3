@@ -2,6 +2,8 @@ from fastapi import APIRouter, HTTPException, Query, status
 from bson import ObjectId
 from bson.errors import InvalidId
 from typing import List
+
+from app.models.Employee import EmployeeOut
 from ..core.db import benefit_collection, employee_collection
 from ..logs.logger import logger
 from app.models.Benefit import BenefitOut, BenefitCreate, PaginatedBenefitResponse
@@ -206,3 +208,51 @@ async def get_benefit(benefit_id: str):
     except Exception as e:
         logger.exception(f"Erro ao buscar benefício ID {benefit_id}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar benefício")
+    
+@router.get("/departments/{department_id}/benefits", response_model=List[BenefitOut])
+async def get_department_benefits(department_id: str):
+    try:
+        employees = await employee_collection.find({"department_id": department_id}).to_list(length=None)
+        benefit_ids = set()
+        for emp in employees:
+            benefit_ids.update(emp.get("benefits_id", []))
+
+        if not benefit_ids:
+            return []
+
+        benefit_objects = await benefit_collection.find({"_id": {"$in": [ObjectId(bid) for bid in benefit_ids]}}).to_list(length=None)
+        for b in benefit_objects:
+            b["_id"] = str(b["_id"])
+        return benefit_objects
+    except Exception as e:
+        logger.exception(f"Erro ao buscar benefícios do departamento {department_id}: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar benefícios do departamento")
+    
+@router.get("/employees/many_benefits/{min_benefits}", response_model=List[EmployeeOut])
+async def get_employees_with_many_benefits(min_benefits: int):
+    try:
+        employees = await employee_collection.find().to_list(length=None)
+        result = [emp for emp in employees if len(emp.get("benefits_id", [])) >= min_benefits]
+        for emp in result:
+            emp["_id"] = str(emp["_id"])
+        return result
+    except Exception as e:
+        logger.exception(f"Erro ao buscar funcionários com muitos benefícios: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar funcionários com muitos benefícios")
+    
+@router.get("/get_by_type", response_model=List[BenefitOut])
+async def get_benefits_by_type(type: str):
+    logger.debug(f"Buscando benefícios do tipo: {type}")
+    try:
+        benefits = await benefit_collection.find({"type": type}).to_list(length=100)
+        if not benefits:
+            logger.warning(f"Nenhum benefício encontrado do tipo: {type}")
+            raise HTTPException(status_code=404, detail="Nenhum benefício encontrado")
+
+        for benefit in benefits:
+            benefit["_id"] = str(benefit["_id"])
+        logger.info(f"{len(benefits)} benefícios encontrados do tipo: {type}")
+        return benefits
+    except Exception as e:
+        logger.exception(f"Erro ao buscar benefícios do tipo {type}: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar benefícios do tipo")

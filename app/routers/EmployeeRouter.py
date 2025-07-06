@@ -9,6 +9,14 @@ from app.models.Employee import EmployeeCreate, EmployeeOut, PaginatedEmployeeRe
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
 
+def is_valid_objectid(id: str) -> bool:
+    try:
+        ObjectId(id)
+        return True
+    except Exception:
+        return False
+
+
 # 🔧 Utilitário para converter ObjectIds em strings
 def fix_objectid(doc):
     if isinstance(doc, list):
@@ -32,23 +40,36 @@ def object_id(id_str: str):
         raise HTTPException(status_code=400, detail="ID inválido")
 
 
-# 🔹 Criar funcionário
 @router.post("/", response_model=EmployeeOut, status_code=status.HTTP_201_CREATED)
 async def create_employee(employee: EmployeeCreate):
-    logger.debug(f"Tentando criar funcionário: {employee}")
-    try:
-        employee_dict = employee.model_dump(exclude_unset=True)
-        result = await employee_collection.insert_one(employee_dict)
-        created = await employee_collection.find_one({"_id": result.inserted_id})
-        if created:
-            created["_id"] = str(created["_id"])
-            logger.info(f"Funcionário criado com sucesso: {created}")
-            return created
-        logger.error("Erro ao recuperar funcionário após inserção")
-        raise HTTPException(status_code=500, detail="Erro ao criar funcionário")
-    except Exception as e:
-        logger.exception(f"Erro inesperado ao criar funcionário: {e}")
-        raise HTTPException(status_code=500, detail="Erro ao criar funcionário")
+    # Valida department_id
+    if employee.department_id:
+        if not is_valid_objectid(employee.department_id):
+            raise HTTPException(status_code=400, detail="ID de departamento inválido")
+        department = await department_collection.find_one({"_id": ObjectId(employee.department_id)})
+        if not department:
+            raise HTTPException(status_code=404, detail="Departamento não encontrado")
+
+    # Valida cada benefit_id
+    for benefit_id in employee.benefits_id:
+        if not is_valid_objectid(benefit_id):
+            raise HTTPException(status_code=400, detail=f"ID de benefício inválido: {benefit_id}")
+        if not await benefit_collection.find_one({"_id": ObjectId(benefit_id)}):
+            raise HTTPException(status_code=404, detail=f"Benefício {benefit_id} não encontrado")
+
+    new_employee = employee.model_dump()
+    result = await employee_collection.insert_one(new_employee)
+
+    # Atualiza department -> adiciona employee_id
+    if employee.department_id:
+        await department_collection.update_one(
+            {"_id": ObjectId(employee.department_id)},
+            {"$push": {"employee_ids": str(result.inserted_id)}}
+        )
+
+    created = await employee_collection.find_one({"_id": result.inserted_id})
+    created["_id"] = str(created["_id"])
+    return created
 
 
 @router.get("/", response_model=PaginatedEmployeeResponse)
@@ -70,46 +91,71 @@ async def list_employees(skip: int = Query(0, ge=0), limit: int = Query(10, ge=1
         logger.exception(f"Erro ao listar funcionários: {e}")
         raise HTTPException(status_code=500, detail="Erro interno ao listar funcionários")
 
-# 🔹 Atualizar funcionário
 @router.put("/{employee_id}", response_model=EmployeeOut)
-async def update_employee(employee_id: str, update_data: EmployeeCreate):
-    logger.debug(f"Tentando atualizar funcionário ID {employee_id} com dados {update_data}")
-    try:
-        data = update_data.model_dump(by_alias=True, exclude_unset=True)
-        result = await employee_collection.update_one(
-            {"_id": object_id(employee_id)},
-            {"$set": data}
+async def update_employee(employee_id: str, employee: EmployeeCreate):
+    if not is_valid_objectid(employee_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
+
+    existing = await employee_collection.find_one({"_id": ObjectId(employee_id)})
+    if not existing:
+        raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+    # Valida novo department_id
+    if employee.department_id:
+        if not is_valid_objectid(employee.department_id):
+            raise HTTPException(status_code=400, detail="ID de departamento inválido")
+        if not await department_collection.find_one({"_id": ObjectId(employee.department_id)}):
+            raise HTTPException(status_code=404, detail="Departamento não encontrado")
+
+    # Valida os benefit_ids
+    for benefit_id in employee.benefits_id:
+        if not is_valid_objectid(benefit_id):
+            raise HTTPException(status_code=400, detail=f"ID de benefício inválido: {benefit_id}")
+        if not await benefit_collection.find_one({"_id": ObjectId(benefit_id)}):
+            raise HTTPException(status_code=404, detail=f"Benefício {benefit_id} não encontrado")
+
+    # Atualiza departamento antigo (remove employee_id)
+    if existing.get("department_id") and existing["department_id"] != employee.department_id:
+        await department_collection.update_one(
+            {"_id": ObjectId(existing["department_id"])},
+            {"$pull": {"employee_ids": employee_id}}
         )
-        if result.matched_count == 0:
-            logger.warning(f"Funcionário ID {employee_id} não encontrado para atualização.")
-            raise HTTPException(status_code=404, detail="Funcionário não encontrado")
-        data["_id"] = employee_id
-        logger.info(f"Funcionário ID {employee_id} atualizado com sucesso.")
-        return data
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.exception(f"Erro ao atualizar funcionário {employee_id}: {e}")
-        raise HTTPException(status_code=500, detail="Erro ao atualizar funcionário")
+
+    # Atualiza departamento novo (adiciona employee_id)
+    if employee.department_id and existing.get("department_id") != employee.department_id:
+        await department_collection.update_one(
+            {"_id": ObjectId(employee.department_id)},
+            {"$addToSet": {"employee_ids": employee_id}}
+        )
+
+    await employee_collection.update_one(
+        {"_id": ObjectId(employee_id)},
+        {"$set": employee.dict()}
+    )
+
+    updated = await employee_collection.find_one({"_id": ObjectId(employee_id)})
+    updated["_id"] = str(updated["_id"])
+    return updated
 
 
-# 🔹 Deletar funcionário
 @router.delete("/{employee_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_employee(employee_id: str):
-    logger.debug(f"Tentando deletar funcionário ID {employee_id}")
-    try:
-        oid = object_id(employee_id)
-        result = await employee_collection.delete_one({"_id": oid})
-        if result.deleted_count == 0:
-            logger.warning(f"Funcionário ID {employee_id} não encontrado para deleção.")
-            raise HTTPException(status_code=404, detail="Funcionário não encontrado")
-        logger.info(f"Funcionário ID {employee_id} deletado com sucesso.")
-        return {"detail": "Funcionário deletado com sucesso"}
-    except HTTPException:
-        raise
-    except Exception as e:
-        logger.exception(f"Erro ao deletar funcionário {employee_id}: {e}")
-        raise HTTPException(status_code=500, detail="Erro ao deletar funcionário")
+    if not is_valid_objectid(employee_id):
+        raise HTTPException(status_code=400, detail="ID inválido")
+
+    employee = await employee_collection.find_one({"_id": ObjectId(employee_id)})
+    if not employee:
+        raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+    # Remove referência no departamento
+    if employee.get("department_id"):
+        await department_collection.update_one(
+            {"_id": ObjectId(employee["department_id"])},
+            {"$pull": {"employee_ids": employee_id}}
+        )
+
+    await employee_collection.delete_one({"_id": ObjectId(employee_id)})
+
     
 @router.get("/count", response_model=dict)
 async def count_employees():
@@ -161,6 +207,26 @@ async def get_employee_by_cpf(cpf: str):
         logger.exception(f"Erro ao buscar funcionário por CPF {cpf}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar funcionário")
     
+@router.get("/get_by_department/{department_id}", response_model=List[EmployeeOut])
+async def get_by_department(department_id: str):
+    logger.debug(f"Buscando funcionários no departamento {department_id}")
+    try:
+        employees = await employee_collection.find({"department_id": department_id}).to_list(length=None)
+
+        for emp in employees:
+            emp["_id"] = str(emp["_id"])
+
+        if not employees:
+            logger.warning(f"Nenhum funcionário encontrado no departamento {department_id}")
+            raise HTTPException(status_code=404, detail="Nenhum funcionário encontrado nesse departamento")
+
+        logger.info(f"{len(employees)} funcionários encontrados no departamento {department_id}")
+        return employees
+
+    except Exception as e:
+        logger.exception(f"Erro ao buscar funcionários por departamento {department_id}: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar funcionários por departamento")
+    
 @router.get("get_by_name/{name}", response_model=List[EmployeeOut])
 async def get_by_name(name: str):
     logger.debug(f"Buscando funcionários com nome contendo '{name}'")
@@ -178,54 +244,69 @@ async def get_by_name(name: str):
         logger.exception(f"Erro ao buscar funcionários por nome {name}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar funcionários por nome")
     
-@router.get("/benefits/{benefit_id}/departments/{department_id}/employees", response_model=List[Dict[str, Any]])
+@router.get(
+    "/benefits/{benefit_id}/departments/{department_id}/employees",
+    response_model=List[Dict[str, Any]]
+)
+
 async def get_employees_by_benefit_and_department(benefit_id: str, department_id: str):
     try:
-        # Converte os IDs
-        try:
-            benefit_oid = ObjectId(benefit_id)
-            department_oid = ObjectId(department_id)
-        except Exception:
-            logger.warning(f"ID inválido fornecido: benefício={benefit_id}, departamento={department_id}")
+        # Verificação opcional: IDs devem ter 24 caracteres (formato de ObjectId)
+        if len(benefit_id) != 24 or len(department_id) != 24:
+            logger.warning(f"ID inválido: benefício={benefit_id}, departamento={department_id}")
             raise HTTPException(status_code=400, detail="ID de benefício ou departamento inválido")
 
-        # Verifica se o benefício existe
-        benefit = await benefit_collection.find_one({"_id": benefit_oid})
-        if not benefit:
+        # Verifica se benefício existe (com id como string)
+        if not await benefit_collection.find_one({"_id": benefit_id}):
             logger.warning(f"Benefício não encontrado: {benefit_id}")
             raise HTTPException(status_code=404, detail="Benefício não encontrado")
 
-        # Verifica se o departamento existe
-        department = await department_collection.find_one({"_id": department_oid})
-        if not department:
+        # Verifica se departamento existe (com id como string)
+        if not await department_collection.find_one({"_id": department_id}):
             logger.warning(f"Departamento não encontrado: {department_id}")
             raise HTTPException(status_code=404, detail="Departamento não encontrado")
 
-        # Busca funcionários com o benefício e pertencentes ao departamento
-        employees_cursor = employee_collection.find({
-            "benefits_id": benefit_oid,
-            "department_id": department_oid  # Agora sim: ObjectId
-        })
-        employees = await employees_cursor.to_list(length=None)
-        employees = fix_objectid(employees)
+        # Consulta correta com string
+        employees = await employee_collection.find({
+            "benefits_id": benefit_id,
+            "department_id": department_id
+        }).to_list(length=None)
+
+        for emp in employees:
+            emp["_id"] = str(emp["_id"])
 
         logger.info(f"{len(employees)} funcionários encontrados com benefício {benefit_id} no departamento {department_id}")
-        return [
-            {
-                "benefit": fix_objectid(benefit),
-                "department": fix_objectid(department),
-                "employee": emp
-            }
-            for emp in employees
-        ]
+        return employees
 
     except HTTPException:
         raise
     except Exception as e:
         logger.exception(f"Erro ao buscar funcionários com benefício {benefit_id} no departamento {department_id}: {e}")
-        raise HTTPException(status_code=500, detail="Erro ao buscar funcionários com benefício e departamento")
+        raise HTTPException(status_code=500, detail="Erro interno ao buscar funcionários")
     
-# 🔹 Buscar funcionário por ID
+@router.get("/get_by_benefit/{benefit_id}")
+async def get_by_benefit(benefit_id: str):
+    logger.debug(f"Buscando funcionários com benefício {benefit_id}")
+    try:
+        if not is_valid_objectid(benefit_id):
+            raise HTTPException(status_code=400, detail="ID de benefício inválido")
+
+        employees = await employee_collection.find({"benefits_id": benefit_id}).to_list(length=None)
+
+        for emp in employees:
+            emp["_id"] = str(emp["_id"])
+
+        if not employees:
+            logger.warning(f"Nenhum funcionário encontrado com benefício {benefit_id}")
+            raise HTTPException(status_code=404, detail="Nenhum funcionário encontrado com esse benefício")
+
+        logger.info(f"{len(employees)} funcionários encontrados com benefício {benefit_id}")
+        return employees
+
+    except Exception as e:
+        logger.exception(f"Erro ao buscar funcionários por benefício {benefit_id}: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar funcionários por benefício")
+
 @router.get("/{employee_id}", response_model=EmployeeOut)
 async def get_employee(employee_id: str):
     try:
