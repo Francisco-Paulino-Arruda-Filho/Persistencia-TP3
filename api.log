@@ -282,3 +282,12 @@ fastapi.exceptions.HTTPException: 404: Nenhum funcionário encontrado nesse depar
 2025-07-06 20:03:04,694 - INFO - 2 funcionários encontrados com benefício 686afac224f2c56fb436b148
 2025-07-06 20:08:05,700 - INFO - 1 departamentos encontrados
 2025-07-06 20:10:14,983 - INFO - 1 departamentos encontrados
+2025-07-07 08:29:23,783 - INFO - 10 benefícios listados com sucesso.
+2025-07-07 08:41:01,064 - INFO - Benefício recuperado com sucesso: {'_id': '686afaba24f2c56fb436b147', 'name': 'Vale Refeição', 'description': 'Crédito diário para alimentação em restaurantes e lanchonetes.', 'value': 25.0, 'type': 'benefício alimentação', 'active': True}
+2025-07-07 08:41:14,691 - INFO - 2 funcionários atualizados (benefício removido)
+2025-07-07 08:41:14,697 - INFO - Benefício ID 686afaba24f2c56fb436b147 deletado com sucesso.
+2025-07-07 08:41:21,958 - INFO - 10 benefícios listados com sucesso.
+2025-07-07 08:41:44,562 - INFO - 3 funcionários encontrados
+2025-07-07 08:42:37,968 - INFO - Benefício recuperado com sucesso: {'_id': '686afade24f2c56fb436b14d', 'name': 'Kit de Ergonomia', 'description': 'Kit com cadeira ajustável, apoio para pés e suporte para notebook.', 'value': 300.0, 'type': 'benefício ocupacional', 'active': True}
+2025-07-07 08:42:50,039 - INFO - 1 funcionários encontrados com benefício 686afade24f2c56fb436b14d
+2025-07-07 08:45:04,952 - INFO - 1 departamentos encontrados

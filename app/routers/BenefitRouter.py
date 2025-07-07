@@ -79,24 +79,35 @@ async def update_benefit(benefit_id: str, update_data: BenefitCreate):
         logger.exception(f"Erro ao atualizar benefício ID {benefit_id}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao atualizar benefício")
 
-# 🔹 Deletar benefício
 @router.delete("/{benefit_id}", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_benefit(benefit_id: str):
     logger.debug(f"Tentando deletar benefício ID {benefit_id}")
     try:
         oid = object_id(benefit_id)
-        result = await benefit_collection.delete_one({"_id": oid})
-        if result.deleted_count == 0:
+
+        result_update = await employee_collection.update_many(
+            {"benefits_id": benefit_id},
+            {"$pull": {"benefits_id": benefit_id}}
+        )
+        logger.info(f"{result_update.modified_count} funcionários atualizados (benefício removido)")
+
+        result_delete = await benefit_collection.delete_one({"_id": oid})
+        if result_delete.deleted_count == 0:
             logger.warning(f"Benefício com ID {benefit_id} não encontrado para deleção.")
             raise HTTPException(status_code=404, detail="Benefício não encontrado")
 
         logger.info(f"Benefício ID {benefit_id} deletado com sucesso.")
-        return {"detail": "Benefício deletado com sucesso"}
+        return {
+            "detail": "Benefício deletado com sucesso",
+            "employees_updated": result_update.modified_count
+        }
+
     except HTTPException:
         raise
     except Exception as e:
         logger.exception(f"Erro ao deletar benefício ID {benefit_id}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao deletar benefício")
+
     
 @router.get("/count", response_model=dict)
 async def count_benefits():
@@ -160,13 +171,11 @@ async def get_benefits_by_employee(employee_id: str):
             logger.warning(f"ID de funcionário inválido: {employee_id}")
             raise HTTPException(status_code=400, detail="ID de funcionário inválido")
 
-        # Busca o funcionário
         employee = await employee_collection.find_one({"_id": employee_oid})
         if not employee:
             logger.warning(f"Funcionário {employee_id} não encontrado")
             raise HTTPException(status_code=404, detail="Funcionário não encontrado")
 
-        # Extrai e converte os IDs dos benefícios (se existirem)
         raw_benefit_ids = employee.get("benefits_id", [])
         benefit_ids = []
         for bid in raw_benefit_ids:
@@ -179,7 +188,6 @@ async def get_benefits_by_employee(employee_id: str):
             logger.info(f"Funcionário {employee_id} não possui benefícios válidos")
             return []
 
-        # Busca os benefícios no banco
         benefits = await benefit_collection.find({"_id": {"$in": benefit_ids}}).to_list(length=None)
 
         logger.info(f"{len(benefits)} benefícios encontrados para o funcionário {employee_id}")
@@ -189,7 +197,6 @@ async def get_benefits_by_employee(employee_id: str):
         logger.exception(f"Erro ao buscar benefícios do funcionário {employee_id}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar benefícios do funcionário")    
 
-# 🔹 Buscar benefício por ID
 @router.get("/{benefit_id}", response_model=BenefitOut)
 async def get_benefit(benefit_id: str):
     logger.debug(f"Buscando benefício por ID {benefit_id}")
@@ -239,6 +246,31 @@ async def get_employees_with_many_benefits(min_benefits: int):
     except Exception as e:
         logger.exception(f"Erro ao buscar funcionários com muitos benefícios: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar funcionários com muitos benefícios")
+    
+@router.get("/departments/{department_id}/benefit_type/{benefit_type}/employees", response_model=List[EmployeeOut])
+async def get_employees_by_department_and_benefit_type(department_id: str, benefit_type: str):
+    logger.debug(f"Buscando funcionários do dept {department_id} com benefícios do tipo '{benefit_type}'")
+    try:
+        # Busca todos os benefícios com o tipo informado
+        benefit_ids = await benefit_collection.find({"type": benefit_type}).to_list(length=None)
+        benefit_ids = [str(b["_id"]) for b in benefit_ids]
+
+        if not benefit_ids:
+            raise HTTPException(status_code=404, detail="Nenhum benefício encontrado com esse tipo")
+
+        employees = await employee_collection.find({
+            "department_id": department_id,
+            "benefits_id": {"$in": benefit_ids}
+        }).to_list(length=None)
+
+        for emp in employees:
+            emp["_id"] = str(emp["_id"])
+
+        return employees
+    except Exception as e:
+        logger.exception(f"Erro ao buscar: {e}")
+        raise HTTPException(status_code=500, detail="Erro interno ao buscar funcionários")
+
     
 @router.get("/get_by_type", response_model=List[BenefitOut])
 async def get_benefits_by_type(type: str):

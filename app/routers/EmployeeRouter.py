@@ -251,22 +251,19 @@ async def get_by_name(name: str):
 
 async def get_employees_by_benefit_and_department(benefit_id: str, department_id: str):
     try:
-        # Verificação opcional: IDs devem ter 24 caracteres (formato de ObjectId)
+        
         if len(benefit_id) != 24 or len(department_id) != 24:
             logger.warning(f"ID inválido: benefício={benefit_id}, departamento={department_id}")
             raise HTTPException(status_code=400, detail="ID de benefício ou departamento inválido")
 
-        # Verifica se benefício existe (com id como string)
         if not await benefit_collection.find_one({"_id": benefit_id}):
             logger.warning(f"Benefício não encontrado: {benefit_id}")
             raise HTTPException(status_code=404, detail="Benefício não encontrado")
 
-        # Verifica se departamento existe (com id como string)
         if not await department_collection.find_one({"_id": department_id}):
             logger.warning(f"Departamento não encontrado: {department_id}")
             raise HTTPException(status_code=404, detail="Departamento não encontrado")
-
-        # Consulta correta com string
+        
         employees = await employee_collection.find({
             "benefits_id": benefit_id,
             "department_id": department_id
