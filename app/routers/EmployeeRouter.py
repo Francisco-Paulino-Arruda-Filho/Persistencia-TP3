@@ -4,7 +4,7 @@ from bson import ObjectId
 from bson.errors import InvalidId
 from typing import Any, Dict, List
 from ..logs.logger import logger
-from ..core.db import employee_collection, benefit_collection, department_collection
+from ..core.db import employee_collection, benefit_collection, department_collection, employee_benefit_collection
 from app.models.Employee import EmployeeCreate, EmployeeOut, PaginatedEmployeeResponse
 
 router = APIRouter(prefix="/employees", tags=["Employees"])
@@ -303,6 +303,61 @@ async def get_by_benefit(benefit_id: str):
     except Exception as e:
         logger.exception(f"Erro ao buscar funcionários por benefício {benefit_id}: {e}")
         raise HTTPException(status_code=500, detail="Erro ao buscar funcionários por benefício")
+
+@router.get("/{employee_id}/full_profile", response_model=Dict[str, Any])
+async def get_employee_full_profile(employee_id: str):
+    logger.debug(f"Buscando perfil completo do funcionário {employee_id}")
+    try:
+        if not is_valid_objectid(employee_id):
+            raise HTTPException(status_code=400, detail="ID inválido")
+
+        # 1. Buscar funcionário
+        employee = await employee_collection.find_one({"_id": ObjectId(employee_id)})
+        if not employee:
+            logger.warning(f"Funcionário com ID {employee_id} não encontrado.")
+            raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+        employee["_id"] = str(employee["_id"])
+
+        # 2. Buscar departamento
+        department = None
+        if employee.get("department_id"):
+            department = await department_collection.find_one({"_id": ObjectId(employee["department_id"])})
+            if department:
+                department["_id"] = str(department["_id"])
+
+        # 3. Buscar employee_benefits
+        emp_benefits = await employee_benefit_collection.find({"employee_id": employee_id}).to_list(length=None)
+        enriched_benefits = []
+
+        for eb in emp_benefits:
+            benefit_id = eb.get("benefit_id")
+            if benefit_id and is_valid_objectid(benefit_id):
+                benefit = await benefit_collection.find_one({"_id": ObjectId(benefit_id)})
+                if benefit:
+                    benefit["_id"] = str(benefit["_id"])
+                    enriched_benefits.append({
+                        "benefit": benefit,
+                        "start_date": eb.get("start_date"),
+                        "end_date": eb.get("end_date"),
+                        "custom_amount": eb.get("custom_amount")
+                    })
+
+        # 4. Estrutura de resposta
+        full_profile = {
+            "employee": employee,
+            "department": department,
+            "benefits": enriched_benefits
+        }
+
+        logger.info(f"Perfil completo do funcionário {employee_id} recuperado com sucesso")
+        return full_profile
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.exception(f"Erro ao buscar perfil completo do funcionário {employee_id}: {e}")
+        raise HTTPException(status_code=500, detail="Erro interno ao buscar perfil completo")
+
 
 @router.get("/{employee_id}", response_model=EmployeeOut)
 async def get_employee(employee_id: str):

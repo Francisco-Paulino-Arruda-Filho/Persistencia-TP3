@@ -291,3 +291,25 @@ fastapi.exceptions.HTTPException: 404: Nenhum funcionário encontrado nesse depar
 2025-07-07 08:42:37,968 - INFO - Benefício recuperado com sucesso: {'_id': '686afade24f2c56fb436b14d', 'name': 'Kit de Ergonomia', 'description': 'Kit com cadeira ajustável, apoio para pés e suporte para notebook.', 'value': 300.0, 'type': 'benefício ocupacional', 'active': True}
 2025-07-07 08:42:50,039 - INFO - 1 funcionários encontrados com benefício 686afade24f2c56fb436b14d
 2025-07-07 08:45:04,952 - INFO - 1 departamentos encontrados
+2025-07-23 09:28:40,522 - INFO - 3 funcionários encontrados
+2025-07-23 09:37:46,022 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d799b2db58d56e068468', 'employee_id': '686afc4c24f2c56fb436b157', 'benefit_id': '686afac224f2c56fb436b148', 'start_date': '2023-03-15', 'end_date': '2024-03-14', 'custom_amount': 300.0}
+2025-07-23 09:37:55,771 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d7a3b2db58d56e068469', 'employee_id': '686afc4c24f2c56fb436b157', 'benefit_id': '686afade24f2c56fb436b14d', 'start_date': '2023-03-15', 'end_date': '2024-03-14', 'custom_amount': 150.0}
+2025-07-23 09:38:04,101 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d7acb2db58d56e06846a', 'employee_id': '686afc7c24f2c56fb436b158', 'benefit_id': '686afac224f2c56fb436b148', 'start_date': '2024-08-01', 'end_date': '2025-08-01', 'custom_amount': 320.0}
+2025-07-23 09:38:12,823 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d7b4b2db58d56e06846b', 'employee_id': '686afc7c24f2c56fb436b158', 'benefit_id': '686afaeb24f2c56fb436b14e', 'start_date': '2024-08-01', 'end_date': '2025-08-01', 'custom_amount': 180.0}
+2025-07-23 09:38:19,814 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d7bbb2db58d56e06846c', 'employee_id': '686afc7c24f2c56fb436b158', 'benefit_id': '686afaf824f2c56fb436b151', 'start_date': '2024-08-01', 'end_date': '2025-08-01', 'custom_amount': 200.0}
+2025-07-23 09:38:27,966 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d7c3b2db58d56e06846d', 'employee_id': '686afcbf24f2c56fb436b159', 'benefit_id': '686afafc24f2c56fb436b152', 'start_date': '2025-01-20', 'end_date': '2026-01-19', 'custom_amount': 250.0}
+2025-07-23 09:38:35,737 - INFO - Benefício de funcionário criado com sucesso: {'_id': '6880d7cbb2db58d56e06846e', 'employee_id': '686afcbf24f2c56fb436b159', 'benefit_id': '686afb0b24f2c56fb436b155', 'start_date': '2025-01-20', 'end_date': '2026-01-19', 'custom_amount': 170.0}
+2025-07-23 09:44:06,113 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 09:47:04,427 - INFO - Folha de pagamento criada com sucesso: {'_id': '6880d9c8b2db58d56e06846f', 'employee_id': '686afc4c24f2c56fb436b157', 'deductions': 500.0, 'discount': 100.0, 'net_salary': 5400.0, 'reference_month': '2023-03'}
+2025-07-23 09:47:14,806 - INFO - Folha de pagamento criada com sucesso: {'_id': '6880d9d2b2db58d56e068470', 'employee_id': '686afc7c24f2c56fb436b158', 'deductions': 650.0, 'discount': 200.0, 'net_salary': 7200.0, 'reference_month': '2024-08'}
+2025-07-23 09:47:25,663 - INFO - Folha de pagamento criada com sucesso: {'_id': '6880d9ddb2db58d56e068471', 'employee_id': '686afcbf24f2c56fb436b159', 'deductions': 400.0, 'discount': 50.0, 'net_salary': 4800.0, 'reference_month': '2025-01'}
+2025-07-23 09:47:41,999 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-23 09:52:11,647 - INFO - 3 funcionários encontrados
+2025-07-23 10:04:12,575 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 10:04:26,035 - WARNING - O ID 6880d7c3b2db58d56e06846d6880d7a3b2db58d56e068469 não representa um benefício de funcionário
+2025-07-23 10:04:47,038 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-23 10:05:40,454 - INFO - Funcionário recuperado com sucesso: {'_id': '686afc4c24f2c56fb436b157', 'name': 'Amanda Oliveira', 'cpf': '12345678901', 'position': 'Analista de Inovação', 'admission_date': datetime.datetime(2023, 3, 15, 9, 0), 'department_id': '686afbc224f2c56fb436b156', 'pay_rool_id': '707070707070707070707011', 'benefits_id': ['686afac224f2c56fb436b148', '686afade24f2c56fb436b14d']}
+2025-07-23 10:07:51,414 - INFO - Funcionário recuperado com sucesso: {'_id': '686afc7c24f2c56fb436b158', 'name': 'Carlos Mendes', 'cpf': '23456789012', 'position': 'Engenheiro de Software', 'admission_date': datetime.datetime(2024, 8, 1, 10, 30), 'department_id': '686afbc224f2c56fb436b156', 'pay_rool_id': '707070707070707070707012', 'benefits_id': ['686afac224f2c56fb436b148', '686afaeb24f2c56fb436b14e', '686afaf824f2c56fb436b151']}
+2025-07-23 10:56:19,650 - INFO - 3 funcionários encontrados
+2025-07-23 10:56:38,189 - INFO - Perfil completo do funcionário 686afc4c24f2c56fb436b157 recuperado com sucesso
+2025-07-23 11:01:13,451 - INFO - Perfil completo do funcionário 686afc4c24f2c56fb436b157 recuperado com sucesso
