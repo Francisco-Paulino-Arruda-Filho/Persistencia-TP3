@@ -5,6 +5,7 @@ from app.core.db import employee_collection, benefit_collection, employee_benefi
 from app.logs.logger import logger
 from app.models import EmployeeBenefitCreate, EmployeeBenefitOut
 from app.models.EmployeeBenefit import EmployeeBenefitPaginated
+from app.models.Benefit import BenefitOut
 
 router = APIRouter(prefix="/employee_benefit", tags=["Employee Benefit"])
 
@@ -146,6 +147,25 @@ async def delete_employee_benefit(employee_benefit_id: str):
     except Exception as e:
         logger.exception(f"Erro interno ao deletar benefício de funcionário: {e}")
         raise HTTPException(status_code=500, detail="Erro ao deletar benefício de funcionário")
+
+@router.get("/active_benefits_by_employee_id")
+async def get_active_benefits_by_employee_id(employee_id: str):
+    cursor = employee_benefit_collection.find({"employee_id": employee_id})
+
+    if not cursor:
+        logger.warning(f"Funcionário com ID {employee_id} não encontrado")
+        raise HTTPException(status_code=404, detail="Funcionário não encontrado")
+
+    employee_benefits = await cursor.to_list(length=None)
+    results = []
+
+    for eb in employee_benefits:
+        benefit = await benefit_collection.find_one({"_id": ObjectId(eb.get("benefit_id")), "active": True})
+        print(benefit)
+        if benefit:
+            results.append(benefit)
+
+    return [BenefitOut(**doc) for doc in results]
 
 @router.get("/{employee_benefit_id}", response_model=EmployeeBenefitOut)
 async def get_employee_benefit(employee_benefit_id: str):
