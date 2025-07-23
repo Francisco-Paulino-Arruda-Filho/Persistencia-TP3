@@ -1,7 +1,11 @@
+from typing import List
+
 from bson import ObjectId
 from bson.errors import InvalidId
 from fastapi import APIRouter, HTTPException, status, Query
-from app.core.db import payroll_collection, employee_collection
+from sqlalchemy.util import await_fallback
+
+from app.core.db import payroll_collection, employee_collection, department_collection
 from app.logs.logger import logger
 from app.models import PayrollOut, PayrollCreate
 from app.models.Payroll import PayrollPaginated
@@ -124,6 +128,36 @@ async def delete_payroll(payroll_id: str):
     except Exception as e:
         logger.exception(f"Erro interno ao deletar folha de pagamento: {e}")
         raise HTTPException(status_code=500, detail="Erro ao deletar folha de pagamento")
+
+@router.get("/get_by_department", response_model=List[PayrollOut])
+async def get_payrolls_by_department(department_id: str):
+    logger.debug(f"Buscando folhas de pagamento de funcionários do Departamento {department_id} ")
+
+    try:
+        department = await department_collection.find_one({"_id": ObjectId(department_id)})
+
+        if not department:
+            logger.warning(f"Departamento com o ID {department_id} não encontrado")
+            raise HTTPException(status_code=404, detail="Departamento não encontrado")
+
+        employees = []
+        for emp_id in department.get("employee_ids"):
+            emp = await employee_collection.find_one({"_id": ObjectId(emp_id)})
+            employees.append(emp)
+
+        payrolls = []
+        for emp in employees:
+            payroll = await payroll_collection.find_one({"employee_id": str(emp.get("_id"))})
+            if payroll:
+                payrolls.append(payroll)
+
+        return payrolls
+    except InvalidId:
+        logger.warning(f"O ID {department_id} não representa um departamento")
+        raise HTTPException(status_code=400, detail="ID inválido")
+    except Exception as e:
+        logger.exception(f"Erro interno ao buscar folhas de pagamento: {e}")
+        raise HTTPException(status_code=500, detail="Erro ao buscar folhaa de pagamento")
 
 @router.get("/{payroll_id}", response_model=PayrollOut)
 async def get_payroll(payroll_id: str):

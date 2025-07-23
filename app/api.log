@@ -644,3 +644,8 @@ bson.errors.InvalidId: 'aaaaaaaaaaa' is not a valid ObjectId, it must be a 12-by
 2025-07-23 01:46:25,821 - INFO - Retornando benefícios de funcionário com sucesso
 2025-07-23 01:46:54,552 - INFO - Benefício de funcionário com ID 68806861f52d420e4962955c atualizada com sucesso
 2025-07-23 01:47:00,275 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 13:16:42,765 - INFO - 7 departamentos encontrados
+2025-07-23 13:16:44,947 - INFO - 7 departamentos encontrados
+2025-07-23 13:27:40,192 - INFO - 7 departamentos encontrados
+2025-07-23 13:28:00,270 - INFO - Folha de pagamento criada com sucesso: {'_id': '68810d9043c3307ab6857933', 'employee_id': '68806829f52d420e4962955a', 'deductions': 111110.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-23 13:33:17,202 - INFO - Folha de pagamento criada com sucesso: {'_id': '68810ecdff9f95f6ff4cdd93', 'employee_id': '68806834f52d420e4962955b', 'deductions': 2222222111110.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
