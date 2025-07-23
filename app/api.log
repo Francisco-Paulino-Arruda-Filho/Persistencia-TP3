@@ -564,3 +564,68 @@ fastapi.exceptions.HTTPException: 404: Folha de pagamento não encontrada
 2025-07-22 23:03:37,756 - INFO - Folha de Pagamento com ID 687efb01933bcd38116653dd atualizada com sucesso
 2025-07-22 23:03:44,395 - INFO - Retornando folhas de pagamento com sucesso
 2025-07-22 23:20:59,942 - INFO - 0 benefícios listados com sucesso.
+2025-07-22 23:51:17,364 - ERROR - Erro ao criar benefício de funcionário: 'string' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/EmployeeBenefitRouter.py", line 18, in create_employee_benefit
+    existing_emp = await employee_collection.find_one({"_id": ObjectId(emp)})
+                                                              ^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/bson/objectid.py", line 105, in __init__
+    self.__validate(oid)
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/bson/objectid.py", line 193, in __validate
+    _raise_invalid_id(oid)
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/bson/objectid.py", line 38, in _raise_invalid_id
+    raise InvalidId(
+bson.errors.InvalidId: 'string' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+2025-07-22 23:51:48,166 - INFO - 1 funcionários encontrados
+2025-07-22 23:52:01,758 - INFO - 0 benefícios listados com sucesso.
+2025-07-22 23:52:07,337 - INFO - Benefício criado com sucesso: {'_id': '68804e5777fb451173851d00', 'name': 'string', 'description': 'string', 'value': 0.0, 'type': 'string', 'active': True}
+2025-07-22 23:52:20,912 - ERROR - Erro ao criar benefício de funcionário: 'str' object has no attribute 'find_one'
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/EmployeeBenefitRouter.py", line 26, in create_employee_benefit
+    existing_benefit = await benefit.find_one({"_id": ObjectId(benefit)})
+                             ^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'find_one'
+2025-07-22 23:52:51,103 - ERROR - Erro ao criar benefício de funcionário: 'str' object has no attribute 'find_one'
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/EmployeeBenefitRouter.py", line 26, in create_employee_benefit
+    existing_benefit = await benefit.find_one({"_id": ObjectId(benefit)})
+                             ^^^^^^^^^^^^^^^^
+AttributeError: 'str' object has no attribute 'find_one'
+2025-07-22 23:53:46,663 - ERROR - Erro ao criar benefício de funcionário: 'EmployeeBenefitCreate' object has no attribute 'insert_one'
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/EmployeeBenefitRouter.py", line 32, in create_employee_benefit
+    result = await employeeBenefit.insert_one(new_emp_benefit)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 991, in __getattr__
+    raise AttributeError(f'{type(self).__name__!r} object has no attribute {item!r}')
+AttributeError: 'EmployeeBenefitCreate' object has no attribute 'insert_one'
+2025-07-22 23:55:14,993 - INFO - Benefício de funcionário criado com sucesso: {'_id': '68804f12cde4b7ec108c455c', 'employee_id': '687fda1306a9aca03e61b40b', 'benefit_id': '68804e5777fb451173851d00', 'start_date': 'string', 'end_date': 'string', 'custom_amount': 0.0}
+2025-07-22 23:55:21,284 - INFO - Benefício de funcionário criado com sucesso: {'_id': '68804f19cde4b7ec108c455d', 'employee_id': '', 'benefit_id': '68804e5777fb451173851d00', 'start_date': 'string', 'end_date': 'string', 'custom_amount': 0.0}
+2025-07-22 23:55:37,798 - ERROR - Erro ao criar benefício de funcionário: 'aaaaaaaaaaa' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/EmployeeBenefitRouter.py", line 18, in create_employee_benefit
+    existing_emp = await employee_collection.find_one({"_id": ObjectId(emp)})
+                                                              ^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/bson/objectid.py", line 105, in __init__
+    self.__validate(oid)
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/bson/objectid.py", line 193, in __validate
+    _raise_invalid_id(oid)
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/bson/objectid.py", line 38, in _raise_invalid_id
+    raise InvalidId(
+bson.errors.InvalidId: 'aaaaaaaaaaa' is not a valid ObjectId, it must be a 12-byte input or a 24-character hex string
+2025-07-22 23:58:18,377 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 00:04:08,030 - INFO - Total de benefícios de funcionário: 2
+2025-07-23 00:06:33,556 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 00:06:59,545 - WARNING - O ID employee_benefit não representa um benefício de funcionário
+2025-07-23 00:07:03,817 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 00:10:35,433 - WARNING - O ID www não representa um benefício de funcionário
+2025-07-23 00:10:40,612 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 00:10:51,020 - INFO - Benefício de funcionário com ID 68804f19cde4b7ec108c455d deletada com sucesso
+2025-07-23 00:10:57,086 - INFO - Total de benefícios de funcionário: 1
+2025-07-23 00:11:00,294 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 00:15:57,497 - INFO - Retornando benefícios de funcionário com sucesso
+2025-07-23 00:16:04,073 - WARNING - O ID 68804f12cde4b7ec108c455c não representa um benefício de funcionário
+2025-07-23 00:16:19,505 - WARNING - O ID 68804f12cde4b7ec108c455c não representa um benefício de funcionário
+2025-07-23 00:16:27,968 - INFO - Benefício de funcionário com ID 68804f12cde4b7ec108c455c atualizada com sucesso
+2025-07-23 00:16:36,023 - INFO - Benefício de funcionário com ID 68804f12cde4b7ec108c455c atualizada com sucesso
+2025-07-23 00:16:42,490 - INFO - Retornando benefícios de funcionário com sucesso
