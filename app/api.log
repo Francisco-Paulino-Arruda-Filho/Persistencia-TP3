@@ -1,0 +1,566 @@
+2025-07-21 22:18:30,981 - ERROR - Erro ao criar departamento: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 687ed8cf059c44fbc98e6fe5, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/DepartmentRouter.py", line 16, in create_department
+    result = await department_collection.insert_one(department_dict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/collection.py", line 891, in insert_one
+    self._insert_one(
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/collection.py", line 831, in _insert_one
+    self._database.client._retryable_write(
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2061, in _retryable_write
+    return self._retry_with_session(retryable, func, s, bulk, operation, operation_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1947, in _retry_with_session
+    return self._retry_internal(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+                                              ^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2840, in _write
+    self._server = self._get_server()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 687ed8cf059c44fbc98e6fe5, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-21 22:18:49,011 - ERROR - Erro ao criar departamento: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 687ed8cf059c44fbc98e6fe5, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/DepartmentRouter.py", line 16, in create_department
+    result = await department_collection.insert_one(department_dict)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/collection.py", line 891, in insert_one
+    self._insert_one(
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/collection.py", line 831, in _insert_one
+    self._database.client._retryable_write(
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2061, in _retryable_write
+    return self._retry_with_session(retryable, func, s, bulk, operation, operation_id)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1947, in _retry_with_session
+    return self._retry_internal(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+                                              ^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2840, in _write
+    self._server = self._get_server()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 687ed8cf059c44fbc98e6fe5, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-21 22:18:56,021 - ERROR - Erro ao listar departamentos
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/DepartmentRouter.py", line 31, in list_departments
+    total = await department_collection.count_documents({})
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/concurrent/futures/thread.py", line 58, in run
+    result = self.fn(*self.args, **self.kwargs)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/collection.py", line 2154, in count_documents
+    return self._retryable_non_cursor_read(_cmd, session, _Op.COUNT)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/collection.py", line 2168, in _retryable_non_cursor_read
+    return client._retryable_read(func, self._read_preference_for(s), s, operation)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2026, in _retryable_read
+    return self._retry_internal(
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/_csot.py", line 125, in csot_wrapper
+    return func(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1993, in _retry_internal
+    ).run()
+      ^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2730, in run
+    return self._read() if self._is_read else self._write()
+           ^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2875, in _read
+    self._server = self._get_server()
+                   ^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 2823, in _get_server
+    return self._client._select_server(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/mongo_client.py", line 1812, in _select_server
+    server = topology.select_server(
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 409, in select_server
+    server = self._select_server(
+             ^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 387, in _select_server
+    servers = self.select_servers(
+              ^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 294, in select_servers
+    server_descriptions = self._select_servers_loop(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pymongo/synchronous/topology.py", line 344, in _select_servers_loop
+    raise ServerSelectionTimeoutError(
+pymongo.errors.ServerSelectionTimeoutError: localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms), Timeout: 30s, Topology Description: <TopologyDescription id: 687ed8cf059c44fbc98e6fe5, topology_type: Unknown, servers: [<ServerDescription ('localhost', 27017) server_type: Unknown, rtt: None, error=AutoReconnect('localhost:27017: [Errno 111] Connection refused (configured timeouts: socketTimeoutMS: 20000.0ms, connectTimeoutMS: 20000.0ms)')>]>
+2025-07-21 22:27:13,351 - INFO - 0 departamentos encontrados
+2025-07-21 22:27:20,072 - INFO - Departamento criado com sucesso: {'_id': '687ee8f8059c44fbc98e6fe8', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-21 22:27:25,030 - INFO - 1 departamentos encontrados
+2025-07-21 22:27:28,650 - INFO - Departamento criado com sucesso: {'_id': '687ee900059c44fbc98e6fe9', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-21 22:27:31,578 - INFO - 2 departamentos encontrados
+2025-07-21 22:35:53,680 - INFO - 2 departamentos encontrados
+2025-07-21 22:35:57,664 - INFO - 2 departamentos encontrados
+2025-07-21 23:27:54,281 - INFO - 0 funcionários encontrados
+2025-07-21 23:28:38,361 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-21 23:32:34,636 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 26, in list_payrolls
+    data = [PayrollOut(**doc) for doc in raw_data]
+            ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:32:35,242 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 26, in list_payrolls
+    data = [PayrollOut(**doc) for doc in raw_data]
+            ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:32:35,403 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 26, in list_payrolls
+    data = [PayrollOut(**doc) for doc in raw_data]
+            ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:32:35,550 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 26, in list_payrolls
+    data = [PayrollOut(**doc) for doc in raw_data]
+            ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:35:52,847 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:04,389 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:05,889 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:06,486 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:06,669 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:06,849 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:07,062 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:36:07,243 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:38:12,585 - INFO - 0 benefícios listados com sucesso.
+2025-07-21 23:39:40,686 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 30, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:42:34,847 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 29, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:42:36,934 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 29, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:42:39,901 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 29, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:44:10,944 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-21 23:44:29,337 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-21 23:46:20,439 - INFO - Departamento criado com sucesso: {'_id': '687efb7c933bcd38116653de', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-21 23:46:29,029 - INFO - 3 departamentos encontrados
+2025-07-21 23:50:33,775 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-21 23:52:49,576 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-21 23:55:01,643 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 32, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-21 23:55:05,812 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 32, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-22 13:48:06,222 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 13:48:26,594 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:00:34,573 - INFO - Departamento criado com sucesso: {'_id': '687fc3b28e342a31a21cba5b', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-22 14:05:14,505 - INFO - Departamento criado com sucesso: {'_id': '687fc4ca26f35567371baec4', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-22 14:05:20,037 - INFO - Departamento criado com sucesso: {'_id': '687fc4d026f35567371baec5', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-22 14:05:22,173 - INFO - Departamento criado com sucesso: {'_id': '687fc4d226f35567371baec6', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-22 14:05:23,341 - INFO - Departamento criado com sucesso: {'_id': '687fc4d326f35567371baec7', 'name': 'string', 'location': 'string', 'description': 'string', 'extension': 'string', 'employee_ids': [], 'manager_id': 'string'}
+2025-07-22 14:08:54,097 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fc5a667da873f6099ee78', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:09:02,895 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 37, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-22 14:14:52,131 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fc70c67da873f6099ee79', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:15:14,181 - ERROR - Erro ao listar as folhas de pagamento: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 37, in list_payrolls
+    data.append(PayrollOut(**doc))
+                ^^^^^^^^^^^^^^^^^
+  File "/home/erick/Documentos/Faculdade/7° Semestre/Persistencia/Persistencia_TP1/.venv/lib/python3.12/site-packages/pydantic/main.py", line 253, in __init__
+    validated_self = self.__pydantic_validator__.validate_python(data, self_instance=self)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+pydantic_core._pydantic_core.ValidationError: 1 validation error for PayrollOut
+id
+  Value error, ID inválido [type=value_error, input_value='string', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.11/v/value_error
+2025-07-22 14:17:33,918 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:17:35,578 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:17:40,348 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:17:41,035 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:17:41,200 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:17:41,356 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:17:41,520 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:18:14,050 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fc7d6b46ab28686ea59e0', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:18:26,464 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fc7e2b46ab28686ea59e1', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:19:21,101 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fc819395b5c220d37925a', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:19:27,975 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fc81f395b5c220d37925b', 'employee_id': 'string', 'deductions': 10.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:20:51,394 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:24:42,586 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:20,002 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:21,742 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:22,064 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:22,239 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:22,382 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:22,551 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:22,703 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:22,876 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:23,032 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:37:23,194 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:39:47,906 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 14:42:44,971 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fcd9470be8a1c80172803', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 14:50:14,925 - INFO - Total de folhas de pagamento: 18
+2025-07-22 15:35:07,262 - INFO - 0 funcionários encontrados
+2025-07-22 15:35:49,841 - INFO - 8 departamentos encontrados
+2025-07-22 15:36:10,265 - INFO - 1 funcionários encontrados
+2025-07-22 15:37:40,109 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fda7406a9aca03e61b40c', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:42:22,629 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fdb8ebc23de7629440d9e', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:42:25,931 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fdb91bc23de7629440d9f', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:43:09,654 - INFO - Folha de pagamento criada com sucesso: {'_id': ObjectId('687fdbbdced61b33cec2aa2a'), 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:43:29,194 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:44:57,351 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:44:58,124 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:45:01,737 - INFO - Total de folhas de pagamento: 22
+2025-07-22 15:46:19,365 - INFO - Folha de pagamento criada com sucesso: {'_id': ObjectId('687fdc7b7064fe57a4406d1a'), 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:46:26,669 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:47:11,537 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:49:12,259 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:51:33,704 - INFO - Folha de pagamento criada com sucesso: {'_id': ObjectId('687fddb599e97c348a3da07b'), 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:51:36,884 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:52:55,997 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:54:15,333 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fde577c9110a4595bf72f', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:54:40,123 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fde707a287a3c110b7fd8', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 15:54:45,357 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 15:54:59,266 - INFO - 8 departamentos encontrados
+2025-07-22 16:09:01,945 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fe1cde01fbd3c4091868d', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:09:09,713 - INFO - Total de folhas de pagamento: 27
+2025-07-22 16:09:14,018 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 16:09:21,588 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 16:09:29,484 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 16:10:07,109 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fe20feeeede88bba1c599', 'employee_id': '687fda1306a9aca03e61b40b', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:25:10,930 - WARNING - O ID null não representa uma folha de pagamento
+2025-07-22 16:25:15,086 - WARNING - O ID 1 não representa uma folha de pagamento
+2025-07-22 16:25:17,667 - WARNING - O ID 2 não representa uma folha de pagamento
+2025-07-22 16:25:24,130 - WARNING - O ID "null" não representa uma folha de pagamento
+2025-07-22 16:25:32,965 - INFO - 8 departamentos encontrados
+2025-07-22 16:25:45,673 - INFO - 1 funcionários tiveram o campo department_id removido
+2025-07-22 16:25:45,674 - INFO - Departamento ID 687ee8f8059c44fbc98e6fe8 deletado com sucesso
+2025-07-22 16:25:56,946 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 16:26:07,401 - WARNING - O ID string não representa uma folha de pagamento
+2025-07-22 16:42:54,377 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fe9be2f511dfa204622fb', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:46:51,841 - INFO - Folha de pagamento criada com sucesso: {'_id': '687feaab2f511dfa204622fc', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:49:45,469 - INFO - Folha de pagamento criada com sucesso: {'_id': '687feb59d3d3ced11b0f90e7', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:50:17,173 - INFO - Folha de pagamento criada com sucesso: {'_id': ObjectId('687feb7999707921cb43a591'), 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:50:23,641 - INFO - Total de folhas de pagamento: 32
+2025-07-22 16:54:40,147 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fec80003d8a8b7ef41a24', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:54:43,213 - INFO - Total de folhas de pagamento: 33
+2025-07-22 16:59:48,690 - INFO - Folha de pagamento criada com sucesso: {'_id': '687fedb42d5c284232d04949', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 16:59:52,534 - INFO - Total de folhas de pagamento: 34
+2025-07-22 20:22:11,213 - INFO - Folha de pagamento criada com sucesso: {'_id': '68801d23b32894de032dc6e0', 'employee_id': 'string', 'deductions': 0.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 20:28:28,732 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 20:34:17,753 - INFO - Total de folhas de pagamento: 35
+2025-07-22 20:34:27,454 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 20:34:37,168 - INFO - Folha de pagamento com ID 687ef74c20c7c4829d33b709 deletada com sucesso
+2025-07-22 20:34:48,653 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 21:12:02,480 - INFO - Folha de pagamento criada com sucesso: {'_id': '688028d2c8c35f38a83c5b9d', 'employee_id': 'string', 'deductions': 1000000000000.0, 'discount': 0.0, 'net_salary': 0.0, 'reference_month': 'string'}
+2025-07-22 22:52:11,352 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 22:52:39,254 - WARNING - O ID 687efb01933bcd38116653dd não representa uma folha de pagamento
+2025-07-22 22:54:46,770 - WARNING - O ID 687efc710496b5312217d153 não representa uma folha de pagamento
+2025-07-22 22:57:05,176 - WARNING - O ID 687efc710496b5312217d153 não representa uma folha de pagamento
+2025-07-22 22:57:39,195 - WARNING - O ID 687efc710496b5312217d153 não representa uma folha de pagamento
+2025-07-22 22:59:14,106 - INFO - Folha de pagamento com ID 687efc710496b5312217d153 deletada com sucesso
+2025-07-22 22:59:18,801 - WARNING - Folha de pagamento com o ID 687efc710496b5312217d153 não encontrada
+2025-07-22 22:59:18,801 - ERROR - Erro interno ao buscar folha de pagamento: 404: Folha de pagamento não encontrada
+Traceback (most recent call last):
+  File "/home/erick/Área de trabalho/Persistencia-TP3/app/routers/PayrollRouter.py", line 139, in get_payroll
+    raise HTTPException(status_code=404, detail="Folha de pagamento não encontrada")
+fastapi.exceptions.HTTPException: 404: Folha de pagamento não encontrada
+2025-07-22 22:59:32,825 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 23:02:50,791 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 23:03:06,813 - WARNING - O ID 687efb01933bcd38116653dd não representa uma folha de pagamento
+2025-07-22 23:03:18,839 - INFO - 1 funcionários encontrados
+2025-07-22 23:03:37,756 - INFO - Folha de Pagamento com ID 687efb01933bcd38116653dd atualizada com sucesso
+2025-07-22 23:03:44,395 - INFO - Retornando folhas de pagamento com sucesso
+2025-07-22 23:20:59,942 - INFO - 0 benefícios listados com sucesso.

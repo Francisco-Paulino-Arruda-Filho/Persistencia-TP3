@@ -1,4 +1,4 @@
-from typing import Optional, TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING, List
 
 from pydantic import BaseModel, Field
 
@@ -28,3 +28,9 @@ class EmployeeBenefitOut(EmployeeBenefitBase):
         json_encoders = {str: str}  # Serializa strings como strings no JSON
         populate_by_name = True      # Permite que o alias (_id) seja populado por id
         orm_mode = True               # Permite que o modelo seja usado com ORMs
+
+class EmployeeBenefitPaginated(BaseModel):
+    total: int
+    skip: int
+    limit: int
+    data: List[EmployeeBenefitOut]
