@@ -1,13 +1,8 @@
-from typing import Optional, TYPE_CHECKING, List
+from typing import Optional, List
 
 from pydantic import BaseModel, Field
 
-if TYPE_CHECKING:
-    from app.models.Employee import EmployeeBase
-    from app.models.Benefit import BenefitBase
-
 class EmployeeBenefitBase(BaseModel):
-    id: Optional[str] = Field(None, alias="_id")
     employee_id: str
     benefit_id: str
     start_date: str
@@ -20,9 +15,6 @@ class EmployeeBenefitCreate(EmployeeBenefitBase):
 
 class EmployeeBenefitOut(EmployeeBenefitBase):
     id: Optional[str] = Field(None, alias="_id")
-    
-    employee: Optional["EmployeeBase"] = None  # Referência 1:1
-    benefit: Optional["BenefitBase"] = None  # Referência 1:1
 
     class Config:
         json_encoders = {str: str}  # Serializa strings como strings no JSON
